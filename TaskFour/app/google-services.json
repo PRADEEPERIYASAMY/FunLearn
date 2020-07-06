@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "230908920546",
+    "firebase_url": "https://funlearn-182ae.firebaseio.com",
+    "project_id": "funlearn-182ae",
+    "storage_bucket": "funlearn-182ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:230908920546:android:4c7eae67f631d745d494bb",
+        "android_client_info": {
+          "package_name": "com.example.taskfour"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "230908920546-2d8385hv428sl90o9l13hfqju9snglje.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCpuSVhbbHh4yTAuiZNN7V04baHki7yAcA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "230908920546-2d8385hv428sl90o9l13hfqju9snglje.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

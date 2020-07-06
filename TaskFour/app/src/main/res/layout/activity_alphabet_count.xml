@@ -1,0 +1,562 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AlphabetCountActivity"
+    android:fitsSystemWindows="true">
+    <RelativeLayout
+        android:id="@+id/relativeLayout3"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="#148606"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@drawable/woodmenu">
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="320dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="80dp"
+                android:layout_marginTop="15dp"
+                android:background="@android:color/transparent"
+                android:text="Count Alphabet      "
+                android:textAlignment="center"
+                android:textSize="45dp"
+                android:fontFamily="@font/paint"
+                android:textColor="#CE4A1900" />
+
+            <Button
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginTop="23dp"
+                android:background="@drawable/back"
+                android:id="@+id/back"/>
+        </RelativeLayout>
+    </RelativeLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        android:background="@drawable/walltwo">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView39"
+            android:layout_width="0dp"
+            android:layout_height="400dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="27dp"
+            android:layout_marginEnd="27dp"
+            app:cardBackgroundColor="#9180B1FF"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/cardView38"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:src="@drawable/glasscentre"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:scaleType="fitXY"/>
+
+                <ImageView
+                    android:layout_width="185dp"
+                    android:layout_height="187dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/glassone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:layout_width="185dp"
+                    android:layout_height="187dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/glasstwo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:layout_width="185dp"
+                    android:layout_height="187dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/glassfour"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <ImageView
+                    android:layout_width="185dp"
+                    android:layout_height="187dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/glassthree"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="10dp"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:id="@+id/result_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Count All"
+                    android:textAlignment="center"
+                    android:textSize="33dp"
+                    android:textColor="#4FA6FB"
+                    android:layout_margin="4dp"
+                    android:fontFamily="@font/gecko"
+                    />
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="65dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp"
+                app:cardBackgroundColor="@android:color/transparent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/whiteboard" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:textSize="27dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="50dp"
+                    android:textColor="@color/white"
+                    android:text="How much wood would "
+                    android:fontFamily="@font/chalk"
+                    android:id="@+id/container"/>
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/addition_wrong"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="20dp"
+                    android:src="@drawable/boom" />
+            </androidx.cardview.widget.CardView>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView38"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="27dp"
+            app:cardBackgroundColor="#5A80B1FF"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/cardView46"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView39"
+            app:layout_constraintVertical_bias="0.0">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:src="@drawable/glasscentre"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:scaleType="fitXY"/>
+
+                <ImageView
+                    android:layout_width="185dp"
+                    android:layout_height="187dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/glassone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:layout_width="185dp"
+                    android:layout_height="187dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/glasstwo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:layout_width="185dp"
+                    android:layout_height="187dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/glassfour"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <ImageView
+                    android:layout_width="185dp"
+                    android:layout_height="187dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/glassthree"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="9dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/c1"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/optionbut" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="12dp"
+                        android:background="#FFFFFF" />
+
+                    <Button
+                        android:id="@+id/option_one"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:text="100"
+                        android:textSize="40dp"
+                        android:paddingTop="3dp"
+                        android:textColor="#433B3B"
+                        android:fontFamily="@font/number" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/c2"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/c3"
+                    app:layout_constraintStart_toEndOf="@+id/c1"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/optionbut" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="12dp"
+                        android:background="#FFFFFF" />
+
+                    <Button
+                        android:id="@+id/option_two"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent"
+                        android:text="100"
+                        android:textSize="40dp"
+                        android:paddingTop="3dp"
+                        android:textColor="#433B3B"
+                        android:fontFamily="@font/number" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/c3"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="#F9333333"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/cardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/optionbut" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="12dp"
+                            android:background="#FFFFFF" />
+
+                        <Button
+                            android:id="@+id/option_three"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:text="100"
+                            android:textSize="40dp"
+                            android:paddingTop="3dp"
+                            android:textColor="#433B3B"
+                            android:fontFamily="@font/number" />
+
+                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView46"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            android:layout_marginStart="27dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="27dp"
+            android:layout_marginBottom="20dp"
+            app:cardBackgroundColor="#5A80B1FF"
+            app:cardCornerRadius="20dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView38"
+            app:layout_constraintVertical_bias="0.0">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:src="@drawable/glasscentre"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:scaleType="fitXY"/>
+
+                <ImageView
+                    android:layout_width="185dp"
+                    android:layout_height="187dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/glassone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:layout_width="185dp"
+                    android:layout_height="187dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/glasstwo"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <ImageView
+                    android:layout_width="185dp"
+                    android:layout_height="187dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/glassfour"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+                <ImageView
+                    android:layout_width="185dp"
+                    android:layout_height="187dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/glassthree"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/c4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="9dp"
+                    android:layout_marginLeft="9dp"
+                    android:layout_marginBottom="9dp"
+                    android:layout_marginRight="120dp"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/c5"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toEndOf="@+id/cardView43"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/rectangle" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/paint"
+                        android:text="Retry"
+                        android:textAlignment="center"
+                        android:textColor="#834200"
+                        android:textSize="70dp" />
+
+                    <Button
+                        android:id="@+id/retry"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@android:color/transparent" />
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/c5"
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    app:cardBackgroundColor="#F9333333"
+                    app:cardCornerRadius="10dp"
+                    android:layout_margin="9dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:cardCornerRadius="10dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            android:src="@drawable/rectangle" />
+
+                        <Button
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="15dp"
+                            android:background="@drawable/next"
+                            android:id="@+id/next"/>
+
+                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

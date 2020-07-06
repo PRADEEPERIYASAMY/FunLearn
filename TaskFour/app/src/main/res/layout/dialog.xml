@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="20sp">
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="75dp"
+        android:padding="5dp"
+        android:id="@+id/iv_tools"
+        android:src="@drawable/paintbrush"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:orientation="vertical"
+        android:layout_marginLeft="90dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:textSize="20sp"
+            android:id="@+id/status_tools_selected"/>
+        <SeekBar
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:id="@+id/seekbar_size"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:gravity="center"
+            android:id="@+id/status_size"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

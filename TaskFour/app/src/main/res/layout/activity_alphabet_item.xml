@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AlphabetItemActivity"
+    android:fitsSystemWindows="true">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/alphabet_container">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="#148606">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:background="@drawable/woodmenu">
+                <TextView
+                    android:layout_width="320dp"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:textSize="45dp"
+                    android:fontFamily="@font/paint"
+                    android:textColor="#CE4A1900"
+                    android:textAlignment="center"
+                    android:layout_marginLeft="80dp"
+                    android:layout_marginTop="15dp"
+                    android:text="  Alphabet List        "
+                    android:id="@+id/label"/>
+
+                <Button
+                    android:id="@+id/back"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="23dp"
+                    android:background="@drawable/back"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="80dp"
+            android:orientation="vertical"
+            android:id="@+id/recycler_alphabet"
+            android:background="@drawable/walltwo" />
+    </FrameLayout>
+
+</RelativeLayout>
