@@ -69,196 +69,171 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent">
-            <androidx.constraintlayout.widget.ConstraintLayout
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <ImageView
+                android:layout_height="match_parent"
+                android:weightSum="2"
+                android:orientation="vertical">
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:src="@drawable/glasscentre"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:scaleType="fitXY"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:weightSum="2"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="185dp"
-                    android:layout_height="187dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/glassone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/glassone"
+                        android:layout_weight="1" />
 
-                <ImageView
-                    android:layout_width="185dp"
-                    android:layout_height="187dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/glasstwo"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/glasstwo"
+                        android:layout_weight="1" />
 
-                <ImageView
-                    android:layout_width="185dp"
-                    android:layout_height="187dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/glassfour"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:weightSum="2"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="185dp"
-                    android:layout_height="187dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/glassthree"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="1.0" />
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/glassthree"
+                        android:layout_weight="1" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/glassfour"
+                        android:layout_weight="1"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
+                android:layout_margin="10dp"
                 app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="10dp"
-                android:layout_margin="10dp">
+                app:cardCornerRadius="10dp">
 
                 <TextView
                     android:id="@+id/result_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_margin="4dp"
+                    android:fontFamily="@font/gecko"
                     android:text="Result"
-                    android:textSize="35dp"
-                    android:layout_margin="5dp"
                     android:textAlignment="center"
                     android:textColor="#4FA6FB"
-                    android:fontFamily="@font/gecko"
-                    />
+                    android:textSize="35dp" />
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:cardCornerRadius="10dp"
-                android:layout_marginTop="65dp"
                 android:layout_marginLeft="10dp"
+                android:layout_marginTop="65dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp">
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="10dp">
+
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:src="@drawable/holder"
-                    android:scaleType="fitXY"/>
+                    android:scaleType="fitXY"
+                    android:src="@drawable/holder" />
 
-                <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
-                    android:id="@+id/container">
+                    android:id="@+id/container"
+                    android:weightSum="10"
+                    android:layout_margin="20dp"
+                    android:orientation="vertical">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_write_one"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginRight="13dp" />
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"/>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_write_two"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="40dp"
-                        android:layout_marginRight="13dp" />
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_write_three"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="70dp"
-                        android:layout_marginRight="13dp" />
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_write_four"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="100dp"
-                        android:layout_marginRight="13dp" />
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_write_five"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="130dp"
-                        android:layout_marginRight="13dp" />
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_write_six"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="160dp"
-                        android:layout_marginRight="13dp" />
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_write_seven"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="190dp"
-                        android:layout_marginRight="13dp" />
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_write_eight"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="220dp"
-                        android:layout_marginRight="13dp" />
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_write_nine"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="250dp"
-                        android:layout_marginRight="13dp" />
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recycler_write_ten"
                         android:layout_width="match_parent"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="13dp"
-                        android:layout_marginTop="280dp"
-                        android:layout_marginRight="13dp" />
-                </RelativeLayout>
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                </LinearLayout>
+
                 <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/addition_wrong"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="20dp"
-                    android:src="@drawable/boom"
-                    android:id="@+id/addition_wrong"/>
+                    android:src="@drawable/boom" />
             </androidx.cardview.widget.CardView>
 
         </androidx.cardview.widget.CardView>
@@ -284,19 +259,16 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/glass"
                 android:scaleType="fitXY"/>
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:weightSum="3">
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardView43"
-                    android:layout_width="100dp"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_weight="1"
                     app:cardCornerRadius="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginBottom="10dp"
@@ -316,13 +288,10 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/c2"
-                    android:layout_width="100dp"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    app:cardCornerRadius="0dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/c3"
-                    app:layout_constraintStart_toEndOf="@+id/cardView43"
-                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginBottom="10dp"
@@ -359,15 +328,10 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/c3"
-                    android:layout_width="100dp"
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    app:cardBackgroundColor="#F9333333"
+                    android:layout_weight="1"
                     app:cardCornerRadius="10dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
                     android:layout_marginTop="10dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginBottom="10dp"
@@ -414,7 +378,7 @@
 
                     </androidx.cardview.widget.CardView>
                 </androidx.cardview.widget.CardView>
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
         </androidx.cardview.widget.CardView>
 

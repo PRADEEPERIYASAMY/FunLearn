@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,7 +62,7 @@ public class NumberWriteActivity extends AppCompatActivity {
     private RecyclerView recyclerView8;
     private RecyclerView recyclerView9;
     private RecyclerView recyclerView10;
-    private RelativeLayout container;
+    private LinearLayout container;
     private MediaPlayer mediaPlayer,mediaPlayer1,mediaPlayer2,mediaPlayer3;
     private CardView c1,c2,c3;
 

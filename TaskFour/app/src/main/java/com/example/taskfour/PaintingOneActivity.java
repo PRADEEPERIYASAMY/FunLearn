@@ -131,9 +131,10 @@ public class PaintingOneActivity extends AppCompatActivity {
                 c5.startAnimation ( animation );
                 mediaPlayer1.start ();
                 paintView.disableEraser ();
-                AlertDialog.Builder builder = new AlertDialog.Builder ( PaintingOneActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder ( PaintingOneActivity.this,R.style.CustomDialog);
                 View view = LayoutInflater.from (PaintingOneActivity.this).inflate ( R.layout.dialog,null,false );
                 TextView toolsSelected = view.findViewById ( R.id.status_tools_selected );
+                Button button = view.findViewById ( R.id.yes );
                 final TextView statusSize = view.findViewById ( R.id.status_size );
                 ImageView ivTools = view.findViewById ( R.id.iv_tools );
                 SeekBar seekBar = view.findViewById ( R.id.seekbar_size );
@@ -143,6 +144,9 @@ public class PaintingOneActivity extends AppCompatActivity {
                 ivTools.setImageResource ( R.drawable.paintbrush );
                 statusSize.setText ( "Selected Size :"+String.valueOf ( brushSize ) );
                 seekBar.setProgress ( brushSize,true );
+
+                final AlertDialog alertDialog = builder.create ();
+                alertDialog.setView ( view );
 
                 seekBar.setOnSeekBarChangeListener ( new SeekBar.OnSeekBarChangeListener () {
                     @Override
@@ -163,16 +167,16 @@ public class PaintingOneActivity extends AppCompatActivity {
                     }
                 } );
 
-                builder.setPositiveButton ( "Ok", new DialogInterface.OnClickListener () {
+                button.setOnClickListener ( new View.OnClickListener () {
                     @Override
-                    public void onClick( DialogInterface dialog, int which ) {
-                        dialog.dismiss ();
+                    public void onClick( View v ) {
+                        alertDialog.cancel ();
                         full ();
                     }
                 } );
 
-                builder.setView ( view );
-                builder.show ();
+                alertDialog.setCanceledOnTouchOutside ( false );
+                alertDialog.show ();
             }
         } );
 
@@ -183,9 +187,10 @@ public class PaintingOneActivity extends AppCompatActivity {
                 c6.startAnimation ( animation );
                 mediaPlayer1.start ();
                 paintView.enableEraser ();
-                AlertDialog.Builder builder = new AlertDialog.Builder ( PaintingOneActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder ( PaintingOneActivity.this,R.style.CustomDialog);
                 View view = LayoutInflater.from (PaintingOneActivity.this).inflate ( R.layout.dialog,null,false );
                 TextView toolsSelected = view.findViewById ( R.id.status_tools_selected );
+                Button button = view.findViewById ( R.id.yes );
                 final TextView statusSize = view.findViewById ( R.id.status_size );
                 ImageView ivTools = view.findViewById ( R.id.iv_tools );
                 SeekBar seekBar = view.findViewById ( R.id.seekbar_size );
@@ -194,6 +199,9 @@ public class PaintingOneActivity extends AppCompatActivity {
                 ivTools.setImageResource ( R.drawable.eraser );
                 statusSize.setText ( "Selected Size :"+String.valueOf ( eraserSize ) );
                 seekBar.setProgress ( eraserSize,true );
+
+                final AlertDialog alertDialog = builder.create ();
+                alertDialog.setView ( view );
 
                 seekBar.setOnSeekBarChangeListener ( new SeekBar.OnSeekBarChangeListener () {
                     @Override
@@ -214,16 +222,16 @@ public class PaintingOneActivity extends AppCompatActivity {
                     }
                 } );
 
-                builder.setPositiveButton ( "Ok", new DialogInterface.OnClickListener () {
+                button.setOnClickListener ( new View.OnClickListener () {
                     @Override
-                    public void onClick( DialogInterface dialog, int which ) {
-                        dialog.dismiss ();
+                    public void onClick( View v ) {
+                        alertDialog.cancel ();
                         full ();
                     }
                 } );
 
-                builder.setView ( view );
-                builder.show ();
+                alertDialog.setCanceledOnTouchOutside ( false );
+                alertDialog.show ();
             }
         } );
 

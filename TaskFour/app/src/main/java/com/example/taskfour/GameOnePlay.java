@@ -189,55 +189,60 @@ public class GameOnePlay extends AppCompatActivity {
 
                             @Override
                             public void onFinish() {
-                                countDownTimer  = new CountDownTimer (150000,1000) {
+                                countDownTimer  = new CountDownTimer (151000,1000) {
                                     @Override
                                     public void onTick( long millisUntilFinished ) {
                                         int time = Integer.parseInt ( timer.getText ().toString () );
-                                        if (time >= 0){
+                                        if (time > 0){
                                             time = time-1;
                                             timer.setText ( String.valueOf ( time ) );
+                                        }
+                                        else if (time == 0){
+                                            countDownTimer.cancel ();
+                                            countDownTimer = null;
+                                            mediaPlayer1.start ();
+                                            final AlertDialog.Builder builder = new AlertDialog.Builder ( GameOnePlay.this,R.style.CustomDialog );
+                                            View view = LayoutInflater.from ( GameOnePlay.this ).inflate ( R.layout.alphabet_write_dialog,null,false );
+                                            Button yes = view.findViewById ( R.id.yes );
+                                            Button no = view.findViewById ( R.id.no );
+                                            TextView firstText = view.findViewById ( R.id.firstText );
+                                            TextView secondText = view.findViewById ( R.id.secontText );
+                                            ImageView dialogImage = view.findViewById ( R.id.dialog_image );
+
+                                            firstText.setText ( "Out of time..." );
+                                            secondText.setText ( "Do you wanna retry ?" );
+                                            dialogImage.setImageResource ( R.drawable.timeout );
+                                            final AlertDialog alertDialog = builder.create ();
+                                            alertDialog.setView ( view );
+
+                                            no.setOnClickListener ( new View.OnClickListener () {
+                                                @Override
+                                                public void onClick( View v ) {
+                                                    mediaPlayer.start ();
+                                                    finish ();
+                                                }
+                                            } );
+
+                                            yes.setOnClickListener ( new View.OnClickListener () {
+                                                @Override
+                                                public void onClick( View v ) {
+                                                    mediaPlayer.start ();
+                                                    finish ();
+                                                    Intent intent = new Intent ( getApplicationContext (), GameOnePlay.class );
+                                                    intent.putExtra ( "id",id );
+                                                    intent.putExtra ( "drawable",drawable );
+                                                    intent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK );
+                                                    startActivity ( intent );
+                                                }
+                                            } );
+                                            alertDialog.setCanceledOnTouchOutside ( false );
+                                            alertDialog.show ();
                                         }
                                     }
 
                                     @Override
                                     public void onFinish() {
-                                        mediaPlayer1.start ();
-                                        final AlertDialog.Builder builder = new AlertDialog.Builder ( GameOnePlay.this,R.style.CustomDialog );
-                                        View view = LayoutInflater.from ( GameOnePlay.this ).inflate ( R.layout.alphabet_write_dialog,null,false );
-                                        Button yes = view.findViewById ( R.id.yes );
-                                        Button no = view.findViewById ( R.id.no );
-                                        TextView firstText = view.findViewById ( R.id.firstText );
-                                        TextView secondText = view.findViewById ( R.id.secontText );
-                                        ImageView dialogImage = view.findViewById ( R.id.dialog_image );
 
-                                        firstText.setText ( "Out of time..." );
-                                        secondText.setText ( "Do you wanna retry ?" );
-                                        dialogImage.setImageResource ( R.drawable.timeout );
-                                        final AlertDialog alertDialog = builder.create ();
-                                        alertDialog.setView ( view );
-
-                                        no.setOnClickListener ( new View.OnClickListener () {
-                                            @Override
-                                            public void onClick( View v ) {
-                                                mediaPlayer.start ();
-                                                finish ();
-                                            }
-                                        } );
-
-                                        yes.setOnClickListener ( new View.OnClickListener () {
-                                            @Override
-                                            public void onClick( View v ) {
-                                                mediaPlayer.start ();
-                                                finish ();
-                                                Intent intent = new Intent ( getApplicationContext (), GameOnePlay.class );
-                                                intent.putExtra ( "id",id );
-                                                intent.putExtra ( "drawable",drawable );
-                                                intent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK );
-                                                startActivity ( intent );
-                                            }
-                                        } );
-                                        alertDialog.setCanceledOnTouchOutside ( false );
-                                        alertDialog.show ();
                                     }
                                 };
                                 countDownTimer.start ();

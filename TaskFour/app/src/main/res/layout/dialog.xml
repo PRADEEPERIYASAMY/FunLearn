@@ -1,39 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="20sp">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="250dp"
+    android:paddingBottom="150dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal">
 
-    <ImageView
-        android:layout_width="80dp"
-        android:layout_height="75dp"
-        android:padding="5dp"
-        android:id="@+id/iv_tools"
-        android:src="@drawable/paintbrush"
-        />
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="75dp"
-        android:orientation="vertical"
-        android:layout_marginLeft="90dp">
-
-        <TextView
+        android:layout_height="155dp"
+        app:cardBackgroundColor="#9F29B6F6"
+        app:cardCornerRadius="35dp">
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:textSize="20sp"
-            android:id="@+id/status_tools_selected"/>
-        <SeekBar
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/glass" />
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        app:cardCornerRadius="35dp">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:id="@+id/seekbar_size"/>
+            android:layout_height="match_parent"
+            android:weightSum="15"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:id="@+id/iv_tools"
+                android:src="@drawable/paintbrush"
+                android:layout_weight="3"
+                android:layout_marginTop="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="15dp"
+                />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="125dp"
+                android:orientation="vertical"
+                android:layout_weight="12"
+                android:layout_margin="10dp"
+                android:weightSum="5">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:gravity="center"
-            android:id="@+id/status_size"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:textSize="20sp"
+                    android:id="@+id/status_tools_selected"/>
+                <SeekBar
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:id="@+id/seekbar_size"/>
 
-    </LinearLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:id="@+id/status_size"/>
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/button"
+                    android:layout_width="100dp"
+                    android:layout_height="0dp"
+                    app:cardBackgroundColor="#9F29B6F6"
+                    app:cardCornerRadius="10dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0"
+                    android:layout_weight="2"
+                    android:layout_gravity="center"
+                    >
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="fitXY"
+                        android:src="@drawable/glass" />
+
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dp"
+                        app:cardCornerRadius="10dp">
+
+                        <Button
+                            android:id="@+id/yes"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@android:color/transparent"
+                            android:text="Ok"
+                            android:textColor="#333333"
+                            android:textSize="25dp"
+                            android:textStyle="bold" />
+                    </androidx.cardview.widget.CardView>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

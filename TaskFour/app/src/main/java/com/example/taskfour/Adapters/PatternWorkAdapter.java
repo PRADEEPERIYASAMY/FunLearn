@@ -33,10 +33,13 @@ public class PatternWorkAdapter extends RecyclerView.Adapter<PatternWorkAdapter.
 
     Context context;
     List<MyViewHolder> myViewHolders = new ArrayList<> (  );
-    MediaPlayer mediaPlayer;
+    MediaPlayer mediaPlayer,mediaPlayer1,mediaPlayer2;
 
     public PatternWorkAdapter( Context context ) {
         this.context = context;
+        mediaPlayer = new MediaPlayer ().create(context,R.raw.splash);
+        mediaPlayer1 = new MediaPlayer ().create(context,R.raw.negative);
+        mediaPlayer2 = new MediaPlayer ().create(context,R.raw.rubberone);
     }
 
     @NonNull
@@ -63,7 +66,6 @@ public class PatternWorkAdapter extends RecyclerView.Adapter<PatternWorkAdapter.
         public MyViewHolder( @NonNull View itemView ) {
             super ( itemView );
             cardView = itemView.findViewById ( R.id.card );
-            mediaPlayer = new MediaPlayer ().create(context,R.raw.splash);
             itemView.setOnClickListener ( new View.OnClickListener () {
                 @Override
                 public void onClick( View v ) {
@@ -82,6 +84,7 @@ public class PatternWorkAdapter extends RecyclerView.Adapter<PatternWorkAdapter.
                     }
 
                     if (verify.size () == 25){
+                        mediaPlayer1.start ();
                         PatternAdapter.myViewHolders.clear ();
                         myViewHolders.clear ();
                         final AlertDialog.Builder builder = new AlertDialog.Builder ( context,R.style.CustomDialog );
@@ -103,6 +106,7 @@ public class PatternWorkAdapter extends RecyclerView.Adapter<PatternWorkAdapter.
                             yes.setOnClickListener ( new View.OnClickListener () {
                                 @Override
                                 public void onClick( View v ) {
+                                    mediaPlayer2.start ();
                                     (( Activity )context).finish ();
                                     Intent intent = new Intent ( context,PaintingThreeActivity.class );
                                     intent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK );
@@ -119,6 +123,7 @@ public class PatternWorkAdapter extends RecyclerView.Adapter<PatternWorkAdapter.
                             yes.setOnClickListener ( new View.OnClickListener () {
                                 @Override
                                 public void onClick( View v ) {
+                                    mediaPlayer2.start ();
                                     (( Activity )context).finish ();
                                     Intent intent = new Intent ( context,PaintingThreeActivity.class );
                                     intent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK );
@@ -131,6 +136,7 @@ public class PatternWorkAdapter extends RecyclerView.Adapter<PatternWorkAdapter.
                         no.setOnClickListener ( new View.OnClickListener () {
                             @Override
                             public void onClick( View v ) {
+                                mediaPlayer2.start ();
                                 (( Activity )context).finish ();
                             }
                         } );

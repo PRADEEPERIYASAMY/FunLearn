@@ -17,7 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.taskfour.Adapters.WriteAdapter;
@@ -44,7 +44,7 @@ public class CountingActivity extends AppCompatActivity {
     private RecyclerView recyclerView8;
     private RecyclerView recyclerView9;
     private RecyclerView recyclerView10;
-    private RelativeLayout container;
+    private LinearLayout container;
     private CardView c1,c2,c3,c4,c5;
 
     private static int index = 0;

@@ -5,8 +5,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <androidx.cardview.widget.CardView
         android:id="@+id/c1"
-        android:layout_width="65dp"
-        android:layout_height="65.5dp"
+        android:layout_width="70dp"
+        android:layout_height="63.1dp"
         app:cardCornerRadius="7dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">

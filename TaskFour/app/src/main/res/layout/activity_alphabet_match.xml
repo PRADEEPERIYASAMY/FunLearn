@@ -55,36 +55,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout3" />
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_height="610dp"
+        android:weightSum="3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/relativeLayout4"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/relativeLayout3"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout3">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_weight="1"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0">
+            app:layout_constraintTop_toTopOf="parent">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView5"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="110dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="13dp"
                 app:cardBackgroundColor="#9180B1FF"
@@ -136,7 +131,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView12"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="110dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="13dp"
                 app:cardBackgroundColor="#9180B1FF"
@@ -188,7 +183,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView2"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="110dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginBottom="13dp"
                 app:cardBackgroundColor="#9180B1FF"
@@ -239,7 +234,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView14"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="110dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginBottom="13dp"
                 app:cardBackgroundColor="#9180B1FF"
@@ -290,7 +285,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardView13"
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
+                android:layout_height="110dp"
                 android:layout_marginStart="10dp"
                 app:cardBackgroundColor="#9180B1FF"
                 app:cardCornerRadius="20dp"
@@ -342,14 +337,13 @@
             android:id="@+id/match_recycler"
             android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:layout_marginTop="15dp"
-            android:layout_marginBottom="2dp"
+            android:layout_weight="2"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

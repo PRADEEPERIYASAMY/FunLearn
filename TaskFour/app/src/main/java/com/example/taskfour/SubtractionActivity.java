@@ -21,7 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.taskfour.Adapters.WriteAdapter;
@@ -55,7 +55,7 @@ public class SubtractionActivity extends AppCompatActivity {
     private RecyclerView recyclerView8;
     private RecyclerView recyclerView9;
     private RecyclerView recyclerView10;
-    private RelativeLayout container;
+    private LinearLayout container;
     private CardView c1;
 
     @Override

@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true">
     <androidx.cardview.widget.CardView
-        android:layout_width="150dp"
+        android:layout_width="200dp"
         android:layout_height="250dp"
         app:cardBackgroundColor="#7A8EFF"
         android:layout_marginTop="5dp"
@@ -62,22 +62,26 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:id="@+id/c1">
-            <TextView
-                android:layout_width="95dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:textSize="15dp"
-                android:paddingTop="7dp"
-                android:textAlignment="center"
-                android:text="  Speak Out"
-                android:layout_marginRight="40dp"
-                android:textColor="#4FA6FB"
-                android:fontFamily="@font/gecko"/>
-            <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="3dp"
-                android:src="@drawable/speaker"/>
+                android:weightSum="10">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:textSize="15dp"
+                    android:paddingTop="7dp"
+                    android:textAlignment="center"
+                    android:text="  Speak Out"
+                    android:textColor="#4FA6FB"
+                    android:fontFamily="@font/gecko"/>
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:src="@drawable/speaker"/>
+            </LinearLayout>
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

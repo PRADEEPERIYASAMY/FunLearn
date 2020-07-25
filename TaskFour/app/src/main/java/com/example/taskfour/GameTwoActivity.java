@@ -478,7 +478,7 @@ public class GameTwoActivity extends AppCompatActivity {
             heart.setTextColor ( Color.rgb ( 255,0,0 ) );
         }
 
-        if (heartvalue != 0){
+        if (heartvalue != 0 && heartvalue > 0){
             new Handler (  ).postDelayed ( new Runnable () {
                 @Override
                 public void run() {
@@ -553,7 +553,7 @@ public class GameTwoActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume ();
         outer = 0;
-        if (countDownTimer1 != null){
+        if (countDownTimer1 != null && heartvalue >0 ){
             animationEnd ();
         }
         full ();

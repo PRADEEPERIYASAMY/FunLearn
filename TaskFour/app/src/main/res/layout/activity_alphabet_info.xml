@@ -54,60 +54,59 @@
                     android:layout_height="250dp"
                     android:layout_margin="15dp"
                     app:cardCornerRadius="20dp"
+                    app:cardBackgroundColor="#9180B1FF"
                    >
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:weightSum="2"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="185dp"
-                            android:layout_height="187dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/glassone"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0" />
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/glassone"
+                                android:layout_weight="1" />
 
-                        <ImageView
-                            android:layout_width="185dp"
-                            android:layout_height="187dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/glasstwo"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0" />
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/glasstwo"
+                                android:layout_weight="1" />
 
-                        <ImageView
-                            android:layout_width="185dp"
-                            android:layout_height="187dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/glassfour"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="1.0" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="185dp"
-                            android:layout_height="187dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/glassthree"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="1.0" />
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/glassthree"
+                                android:layout_weight="1" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/glassfour"
+                                android:layout_weight="1"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -115,20 +114,24 @@
                         android:layout_margin="10dp"
                         app:cardBackgroundColor="#966200EE">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp">
+                            android:layout_marginTop="10dp"
+                            android:orientation="horizontal"
+                            android:weightSum="2">
 
                             <androidx.cardview.widget.CardView
-                                android:layout_width="155dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="160dp"
                                 android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
                                 app:cardCornerRadius="20dp"
                                 app:cardBackgroundColor="#9180B1FF"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:layout_weight="1">
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -178,9 +181,9 @@
                             </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
-                                android:layout_width="155dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="160dp"
-                                android:layout_marginLeft="190dp"
+                                android:layout_marginLeft="120dp"
                                 android:layout_marginEnd="10dp"
                                 app:cardBackgroundColor="#9180B1FF"
                                 app:cardCornerRadius="20dp"
@@ -188,7 +191,8 @@
                                 app:layout_constraintEnd_toEndOf="parent"
                                 app:layout_constraintHorizontal_bias="1.0"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent">
+                                app:layout_constraintTop_toTopOf="parent"
+                                android:layout_weight="1">
                                 <ImageView
                                     android:layout_width="match_parent"
                                     android:layout_height="match_parent"
@@ -237,7 +241,7 @@
                                         android:id="@+id/alphabet_small"/>
                                 </androidx.cardview.widget.CardView>
                             </androidx.cardview.widget.CardView>
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                        </LinearLayout>
 
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
@@ -315,59 +319,57 @@
                     android:layout_marginTop="290dp"
                     app:cardCornerRadius="20dp"
                     app:cardBackgroundColor="#9180B1FF">
-                    <androidx.constraintlayout.widget.ConstraintLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="match_parent"
+                        android:weightSum="2"
+                        android:orientation="vertical">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="182dp"
-                            android:layout_height="185dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/glassone"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0" />
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/glassone"
+                                android:layout_weight="1" />
 
-                        <ImageView
-                            android:layout_width="185dp"
-                            android:layout_height="187dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/glasstwo"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0" />
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/glasstwo"
+                                android:layout_weight="1" />
 
-                        <ImageView
-                            android:layout_width="185dp"
-                            android:layout_height="187dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/glassfour"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="1.0" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:weightSum="2"
+                            android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="185dp"
-                            android:layout_height="187dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/glassthree"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="1.0" />
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/glassthree"
+                                android:layout_weight="1" />
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/glassfour"
+                                android:layout_weight="1"/>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -558,57 +560,64 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                        <ImageView
-                            android:layout_width="185dp"
+                        <LinearLayout
+                            android:id="@+id/linearLayout3"
+                            android:layout_width="match_parent"
                             android:layout_height="187dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/glassone"
+                            android:weightSum="2"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0" />
+                            app:layout_constraintVertical_bias="0.0"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:id="@+id/imageView2"
+                                android:layout_width="0dp"
+                                android:layout_height="187dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/glassone"
+                                android:layout_weight="1" />
 
-                        <ImageView
-                            android:layout_width="185dp"
-                            android:layout_height="187dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/glasstwo"
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="187dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/glasstwo"
+                                android:layout_weight="1"/>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/linearLayout32"
+                            android:layout_width="match_parent"
+                            android:layout_height="185dp"
+                            android:weightSum="2"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="1.0"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.0" />
+                            app:layout_constraintVertical_bias="1.0"
+                            android:orientation="horizontal">
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="187dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/glassthree"
+                                android:layout_weight="1" />
+
+                            <ImageView
+                                android:layout_width="0dp"
+                                android:layout_height="187dp"
+                                android:scaleType="fitXY"
+                                android:src="@drawable/glassfour"
+                                android:layout_weight="1" />
+                        </LinearLayout>
 
                         <ImageView
-                            android:layout_width="185dp"
-                            android:layout_height="187dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/glassfour"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="1.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="1.0" />
-
-                        <ImageView
-                            android:layout_width="185dp"
-                            android:layout_height="187dp"
-                            android:scaleType="fitXY"
-                            android:src="@drawable/glassthree"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.0"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="1.0" />
-
-                        <ImageView
-                            android:layout_width="362dp"
-                            android:layout_height="291dp"
+                            android:id="@+id/imageView3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="180dp"
+                            android:layout_marginBottom="180dp"
                             android:scaleType="fitXY"
                             android:src="@drawable/glasscentre"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -658,12 +667,13 @@
                             </androidx.cardview.widget.CardView>
                         </androidx.cardview.widget.CardView>
                         <androidx.recyclerview.widget.RecyclerView
-                            android:layout_width="match_parent"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="70dp"
                             android:layout_marginBottom="10dp"
                             android:id="@+id/alphabet_word_recycler"
-                            android:nestedScrollingEnabled="false"/>
+                            android:nestedScrollingEnabled="false"
+                            android:layout_gravity="center_horizontal"/>
 
                     </androidx.cardview.widget.CardView>
                 </androidx.cardview.widget.CardView>
