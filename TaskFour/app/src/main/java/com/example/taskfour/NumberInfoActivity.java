@@ -56,6 +56,36 @@ public class NumberInfoActivity extends AppCompatActivity {
             }
         } );
 
+        final Button info = findViewById ( R.id.info );
+        info.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick( View v ) {
+                mediaPlayer.start ();
+                final AlertDialog.Builder builder = new AlertDialog.Builder ( NumberInfoActivity.this,R.style.CustomDialog );
+                View view = LayoutInflater.from ( NumberInfoActivity.this ).inflate ( R.layout.about_dialog,null,false );
+
+                Button close = view.findViewById ( R.id.info_close );
+                TextView infoText = view.findViewById ( R.id.info_text );
+
+                infoText.setText ( "Just add the given numbers, and enter the result in answer field. If the answer is correct corresponding result will be shown, else you will be asked to try again." );
+
+                final AlertDialog alertDialog = builder.create ();
+                alertDialog.setView ( view );
+
+                close.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick( View v ) {
+                        mediaPlayer1.start ();
+                        alertDialog.cancel ();
+                        full ();
+                    }
+                } );
+
+                alertDialog.setCanceledOnTouchOutside ( false );
+                alertDialog.show ();
+            }
+        } );
+
     }
 
     @Override

@@ -155,6 +155,36 @@ public class CountingActivity extends AppCompatActivity {
             }
         } );
 
+        final Button info = findViewById ( R.id.info );
+        info.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick( View v ) {
+                mediaPlayer.start ();
+                final AlertDialog.Builder builder = new AlertDialog.Builder ( CountingActivity.this,R.style.CustomDialog );
+                View view = LayoutInflater.from ( CountingActivity.this ).inflate ( R.layout.about_dialog,null,false );
+
+                Button close = view.findViewById ( R.id.info_close );
+                TextView infoText = view.findViewById ( R.id.info_text );
+
+                infoText.setText ( "Users are requested to count the object shown and enter the answer in the answer field. The corresponding result will be shown base on answer entered." );
+
+                final AlertDialog alertDialog = builder.create ();
+                alertDialog.setView ( view );
+
+                close.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick( View v ) {
+                        mediaPlayer1.start ();
+                        alertDialog.cancel ();
+                        full ();
+                    }
+                } );
+
+                alertDialog.setCanceledOnTouchOutside ( false );
+                alertDialog.show ();
+            }
+        } );
+
     }
 
     @Override

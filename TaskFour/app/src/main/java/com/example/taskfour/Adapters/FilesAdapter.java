@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.taskfour.PaintingOneActivity;
 import com.example.taskfour.PaintingTwoActivity;
 import com.example.taskfour.R;
+import com.example.taskfour.SignInActivity;
 
 import java.io.File;
 import java.util.List;
@@ -61,7 +63,7 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.MyViewHolder
         Button selected , delete;
         CardView c1,c2;
 
-        public MyViewHolder( @NonNull View itemView ) {
+        public MyViewHolder( @NonNull final View itemView ) {
             super ( itemView );
             imageView = itemView.findViewById ( R.id.image );
             selected = itemView.findViewById ( R.id.selected );
@@ -107,9 +109,19 @@ public class FilesAdapter extends RecyclerView.Adapter<FilesAdapter.MyViewHolder
                         fileList.remove ( pos );
                         notifyItemRemoved ( pos );
                         if (delete.delete()) {
-                            Toast.makeText ( mContext,"deleted",Toast.LENGTH_SHORT ).show ();
+                            View view = LayoutInflater.from ( itemView.getContext () ).inflate ( R.layout.toast,null,false );
+                            TextView textView = view.findViewById ( R.id.toast_text );
+                            textView.setText ( "Deleted" );
+                            Toast toast = new Toast ( itemView.getContext () );
+                            toast.setView ( view );
+                            toast.show ();
                         } else {
-                            Toast.makeText ( mContext,"not deleted",Toast.LENGTH_SHORT ).show ();
+                            View view = LayoutInflater.from ( itemView.getContext () ).inflate ( R.layout.toast,null,false );
+                            TextView textView = view.findViewById ( R.id.toast_text );
+                            textView.setText ( "Failed" );
+                            Toast toast = new Toast ( itemView.getContext () );
+                            toast.setView ( view );
+                            toast.show ();
                         }
                     }
                 }

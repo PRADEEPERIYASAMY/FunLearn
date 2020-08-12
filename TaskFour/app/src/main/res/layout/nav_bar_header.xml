@@ -17,17 +17,16 @@
             app:cardBackgroundColor="@color/colorPrimary"
             app:cardCornerRadius="10dp">
             <ImageView
-                android:layout_width="382dp"
-                android:layout_height="200dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
                 android:src="@drawable/menu"
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="-43dp"/>
+                android:layout_gravity="center"/>
             <ImageView
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/backtoschool"
-                android:layout_marginTop="80dp"
-                android:layout_marginLeft="102dp"/>
+                android:layout_gravity="center"/>
         </androidx.cardview.widget.CardView>
     </LinearLayout>
 

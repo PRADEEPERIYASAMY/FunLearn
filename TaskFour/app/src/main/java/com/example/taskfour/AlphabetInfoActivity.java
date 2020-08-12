@@ -56,6 +56,7 @@ public class AlphabetInfoActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView ( R.layout.activity_alphabet_info );
+
         id = getIntent ().getIntExtra ( "id",0 );
 
         mediaPlayer = new MediaPlayer ().create(getApplicationContext (),R.raw.rubberone);
@@ -140,6 +141,36 @@ public class AlphabetInfoActivity extends AppCompatActivity {
             @Override
             public void onClick( View v ) {
                 exit ();
+            }
+        } );
+
+        final  Button info = findViewById ( R.id.info );
+        info.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick( View v ) {
+                mediaPlayer2.start ();
+                final AlertDialog.Builder builder = new AlertDialog.Builder ( AlphabetInfoActivity.this,R.style.CustomDialog );
+                View view = LayoutInflater.from ( AlphabetInfoActivity.this ).inflate ( R.layout.about_dialog,null,false );
+
+                Button close = view.findViewById ( R.id.info_close );
+                TextView infoText = view.findViewById ( R.id.info_text );
+
+                infoText.setText ( "This page shows the sentence usage and words related to the selected alphabet along with proper voice which spells the content for better understanding. " );
+
+                final AlertDialog alertDialog = builder.create ();
+                alertDialog.setView ( view );
+
+                close.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick( View v ) {
+                        mediaPlayer.start ();
+                        alertDialog.cancel ();
+                        full ();
+                    }
+                } );
+
+                alertDialog.setCanceledOnTouchOutside ( false );
+                alertDialog.show ();
             }
         } );
 

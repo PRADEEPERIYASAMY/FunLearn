@@ -1,5 +1,6 @@
 package com.example.taskfour;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Environment;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -14,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.taskfour.Adapters.FilesAdapter;
+import com.example.taskfour.alphabets.ListOfAlphabets;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,7 +25,7 @@ import java.util.List;
 public class ListColoredActivity extends AppCompatActivity {
 
     List<File> fileList;
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer,mediaPlayer1;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -43,6 +46,7 @@ public class ListColoredActivity extends AppCompatActivity {
         setContentView ( R.layout.activity_list_colored );
         Main2Activity.mediaPlayer.start ();
         mediaPlayer = new MediaPlayer ().create(getApplicationContext (),R.raw.negative);
+        mediaPlayer1 = new MediaPlayer ().create(getApplicationContext (),R.raw.rubberone);
         RecyclerView recyclerView = findViewById ( R.id.recycler_view_files );
         recyclerView.setHasFixedSize ( true );
         GridLayoutManager gridLayoutManager = new GridLayoutManager ( this,2 );
@@ -57,6 +61,36 @@ public class ListColoredActivity extends AppCompatActivity {
             public void onClick( View v ) {
                 mediaPlayer.start ();
                 finish ();
+            }
+        } );
+
+        final Button info = findViewById ( R.id.info );
+        info.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick( View v ) {
+                mediaPlayer.start ();
+                final AlertDialog.Builder builder = new AlertDialog.Builder ( ListColoredActivity.this,R.style.CustomDialog );
+                View view = LayoutInflater.from ( ListColoredActivity.this ).inflate ( R.layout.about_dialog,null,false );
+
+                Button close = view.findViewById ( R.id.info_close );
+                TextView infoText = view.findViewById ( R.id.info_text );
+
+                infoText.setText ( "This page shows the images saved after colouring, and allowed to delete from list or use it once again to recolor" );
+
+                final AlertDialog alertDialog = builder.create ();
+                alertDialog.setView ( view );
+
+                close.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick( View v ) {
+                        mediaPlayer1.start ();
+                        alertDialog.cancel ();
+                        full ();
+                    }
+                } );
+
+                alertDialog.setCanceledOnTouchOutside ( false );
+                alertDialog.show ();
             }
         } );
 

@@ -22,7 +22,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.taskfour.Adapters.WriteAdapter;
 
@@ -40,8 +42,9 @@ public class NumberFillup extends AppCompatActivity {
 
 
     private TextView firstNum,secondNum,resultName;
-    private EditText answer;
-    private Button submit,retry,next;
+    private TextView answer;
+    private Button submit,retry,next,answer_button,_1,_2,_3,_4,_5,_6,_7,_8,_9,_0,x,up;
+    private List<Button>buttonList = new ArrayList<> (  );
     private ImageView wrong;
     private static int index = 0;
 
@@ -57,6 +60,7 @@ public class NumberFillup extends AppCompatActivity {
     private RecyclerView recyclerView9;
     private RecyclerView recyclerView10;
     private LinearLayout container;
+    private RelativeLayout calculator;
     private CardView c1;
 
     @Override
@@ -99,12 +103,89 @@ public class NumberFillup extends AppCompatActivity {
         secondNum.setText ( String.valueOf ( second ) );
         container.setVisibility ( View.INVISIBLE );
 
+        answer_button = findViewById ( R.id.addition_answer_button );
+        calculator = findViewById ( R.id.calculator );
+        _0 = findViewById ( R.id.b0 );
+        _1 = findViewById ( R.id.b1 );
+        _2 = findViewById ( R.id.b2 );
+        _3 = findViewById ( R.id.b3 );
+        _4 = findViewById ( R.id.b4 );
+        _5 = findViewById ( R.id.b5 );
+        _6 = findViewById ( R.id.b6 );
+        _7 = findViewById ( R.id.b7 );
+        _8 = findViewById ( R.id.b8 );
+        _9 = findViewById ( R.id.b9 );
+        x = findViewById ( R.id.x );
+        up = findViewById ( R.id.up );
+
+        buttonList.clear ();
+        buttonList.add ( _0 );
+        buttonList.add ( _1 );
+        buttonList.add ( _2 );
+        buttonList.add ( _3 );
+        buttonList.add ( _4 );
+        buttonList.add ( _5 );
+        buttonList.add ( _6 );
+        buttonList.add ( _7 );
+        buttonList.add ( _8 );
+        buttonList.add ( _9 );
+
+        for (final Button button :buttonList) {
+            button.setOnClickListener ( new View.OnClickListener () {
+                @Override
+                public void onClick( View v ) {
+                    if (answer.getText ().toString ().length () < 3){
+                        answer.append ( button.getText ().toString () );
+                    }
+                    else {
+                        View view = LayoutInflater.from ( NumberFillup.this ).inflate ( R.layout.toast,null,false );
+                        Toast toast = new Toast ( getApplicationContext () );
+                        toast.setView ( view );
+                        toast.show ();
+
+                    }
+                }
+            } );
+        }
+
+        View.OnClickListener onClickListener = new View.OnClickListener () {
+            @Override
+            public void onClick( View v ) {
+                switch (v.getId ()){
+                    case R.id.addition_answer_button:
+                        answer_button.setEnabled ( false );
+                        calculator.setVisibility ( View.VISIBLE );
+                        calculator.startAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (),R.anim.down ) );
+                        break;
+                    case R.id.x:
+                        answer.setText ( "" );
+                        break;
+                    case R.id.up:
+                        calculator.startAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (),R.anim.up ) );
+                        answer_button.setEnabled ( true );
+                        calculator.setVisibility ( View.INVISIBLE );
+                        break;
+                }
+            }
+        };
+
+        calculator.setVisibility ( View.INVISIBLE );
+        answer.setText ( "" );
+        x.setOnClickListener ( onClickListener );
+        answer_button.setOnClickListener ( onClickListener );
+        up.setOnClickListener ( onClickListener );
+
         c1 = findViewById ( R.id.c3 );
         final Animation animation = AnimationUtils.loadAnimation ( getApplicationContext (),R.anim.button );
 
         submit.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick( View v ) {
+                if (calculator.getVisibility () == View.VISIBLE){
+                    calculator.startAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (),R.anim.up ) );
+                    answer_button.setEnabled ( true );
+                    calculator.setVisibility ( View.INVISIBLE );
+                }
                 c1.startAnimation ( animation );
                 mediaPlayer1.start ();
                 if (answer.getText ().toString ().equals ( String.valueOf ( (int)(first + second)/2 ) )){
@@ -145,7 +226,7 @@ public class NumberFillup extends AppCompatActivity {
                     visibility ( 2 );
                     answer.setEnabled ( false );
                 }
-                down ();
+                
             }
         } );
 
@@ -188,6 +269,37 @@ public class NumberFillup extends AppCompatActivity {
             }
         } );
 
+        final Button info = findViewById ( R.id.info );
+        info.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick( View v ) {
+                
+                mediaPlayer.start ();
+                final AlertDialog.Builder builder = new AlertDialog.Builder ( NumberFillup.this,R.style.CustomDialog );
+                View view = LayoutInflater.from ( NumberFillup.this ).inflate ( R.layout.about_dialog,null,false );
+
+                Button close = view.findViewById ( R.id.info_close );
+                TextView infoText = view.findViewById ( R.id.info_text );
+
+                infoText.setText ( "Just find number lies between the given numbers, and enter the result in answer field. If the answer is correct corresponding result will be shown, else you will be asked to try again." );
+
+                final AlertDialog alertDialog = builder.create ();
+                alertDialog.setView ( view );
+
+                close.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick( View v ) {
+                        mediaPlayer1.start ();
+                        alertDialog.cancel ();
+                        full ();
+                    }
+                } );
+
+                alertDialog.setCanceledOnTouchOutside ( false );
+                alertDialog.show ();
+            }
+        } );
+
     }
 
     @Override
@@ -196,7 +308,7 @@ public class NumberFillup extends AppCompatActivity {
     }
 
     private void exit(){
-        down ();
+        
         mediaPlayer.start ();
         final AlertDialog.Builder builder = new AlertDialog.Builder ( NumberFillup.this,R.style.CustomDialog );
         View view = LayoutInflater.from ( NumberFillup.this ).inflate ( R.layout.alphabet_write_dialog,null,false );
@@ -310,26 +422,7 @@ public class NumberFillup extends AppCompatActivity {
             recyclerView.setVisibility ( View.INVISIBLE );
         }
     }
-    private void down(){
-        try {
-
-            View view = (NumberFillup.this).getWindow().getCurrentFocus();
-
-            if (view != null && view.getWindowToken() != null) {
-
-                IBinder binder = view.getWindowToken();
-
-                InputMethodManager imm = (InputMethodManager) (NumberFillup.this).getSystemService( Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(binder, 0);
-
-            }
-
-        } catch (NullPointerException e) {
-
-            e.printStackTrace();
-
-        }
-    }
+    
     private void full(){
         final View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE

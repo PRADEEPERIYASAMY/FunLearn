@@ -187,7 +187,38 @@ public class AlphabetMatchActivity extends AppCompatActivity {
             }
         } );
 
+        final  Button info = findViewById ( R.id.info );
+        info.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick( View v ) {
+                mediaPlayer.start ();
+                final AlertDialog.Builder builder = new AlertDialog.Builder ( AlphabetMatchActivity.this,R.style.CustomDialog );
+                View view = LayoutInflater.from ( AlphabetMatchActivity.this ).inflate ( R.layout.about_dialog,null,false );
+
+                Button close = view.findViewById ( R.id.info_close );
+                TextView infoText = view.findViewById ( R.id.info_text );
+
+                infoText.setText ( "Users are requested to find the correct words which matches the given image. Once completed user are asked to move on or skip the session." );
+
+                final AlertDialog alertDialog = builder.create ();
+                alertDialog.setView ( view );
+
+                close.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick( View v ) {
+                        mediaPlayer1.start ();
+                        alertDialog.cancel ();
+                        full ();
+                    }
+                } );
+
+                alertDialog.setCanceledOnTouchOutside ( false );
+                alertDialog.show ();
+            }
+        } );
+
     }
+
 
     @Override
     public void onBackPressed() {

@@ -4,15 +4,18 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -53,6 +56,7 @@ public class AlphabetCountActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView ( R.layout.activity_alphabet_count );
+
         mediaPlayer = new MediaPlayer ().create(getApplicationContext (),R.raw.negative);
         mediaPlayer1 = new MediaPlayer ().create(getApplicationContext (),R.raw.rubberone);
         mediaPlayer3 = new MediaPlayer ().create(getApplicationContext (),R.raw.explosion);
@@ -140,6 +144,36 @@ public class AlphabetCountActivity extends AppCompatActivity {
             @Override
             public void onClick( View v ) {
                 exit ();
+            }
+        } );
+
+        final Button info = findViewById ( R.id.info );
+        info.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick( View v ) {
+                mediaPlayer.start ();
+                final AlertDialog.Builder builder = new AlertDialog.Builder ( AlphabetCountActivity.this,R.style.CustomDialog );
+                View view = LayoutInflater.from ( AlphabetCountActivity.this ).inflate ( R.layout.about_dialog,null,false );
+
+                Button close = view.findViewById ( R.id.info_close );
+                TextView infoText = view.findViewById ( R.id.info_text );
+
+                infoText.setText ( "Just count the given alphabet in sentence , and choose the corresponding option. If the answer is correct result will be shown, else you will be asked to try again." );
+
+                final AlertDialog alertDialog = builder.create ();
+                alertDialog.setView ( view );
+
+                close.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick( View v ) {
+                        mediaPlayer1.start ();
+                        alertDialog.cancel ();
+                        full ();
+                    }
+                } );
+
+                alertDialog.setCanceledOnTouchOutside ( false );
+                alertDialog.show ();
             }
         } );
 

@@ -1,14 +1,26 @@
 package com.example.taskfour;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.Manifest;
 import android.content.Intent;
-import android.media.MediaPlayer;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,12 +41,23 @@ public class MainActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView ( R.layout.activity_main );
 
+
+
         new Handler (  ).postDelayed ( new Runnable () {
             @Override
             public void run() {
-                Intent intent = new Intent ( getApplicationContext (),Main2Activity.class );
-                startActivity ( intent );
-                finish ();
+                FirebaseUser currentUser = FirebaseAuth.getInstance ().getCurrentUser();
+                if (currentUser != null)
+                {
+                    Intent intent = new Intent ( getApplicationContext (),Main2Activity.class );
+                    startActivity ( intent );
+                    finish ();
+                }
+                else {
+                    Intent intent = new Intent ( getApplicationContext (),SignInActivity.class );
+                    startActivity ( intent );
+                    finish ();
+                }
             }
         },SPLASH_TIME_OUT );
     }

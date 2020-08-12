@@ -326,7 +326,13 @@ public class PaintingOneActivity extends AppCompatActivity {
                 c3.startAnimation ( animation );
                 mediaPlayer1.start ();
                 if (ActivityCompat.checkSelfPermission ( getApplicationContext (), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ){
-                    Toast.makeText ( getApplicationContext (),"you should grant permission",Toast.LENGTH_LONG ).show ();
+                    View view = LayoutInflater.from ( PaintingOneActivity.this ).inflate ( R.layout.toast,null,false );
+                    TextView textView = view.findViewById ( R.id.toast_text );
+                    ImageView imageView = view.findViewById ( R.id.toast_image );
+                    textView.setText ( "Permission needed" );
+                    Toast toast = new Toast ( getApplicationContext () );
+                    toast.setView ( view );
+                    toast.show ();
                     requestPermissions ( new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},PERMISSION_REQUEST_CODE );
                     return;
                 }
@@ -403,9 +409,21 @@ public class PaintingOneActivity extends AppCompatActivity {
         switch (requestCode) {
             case PERMISSION_REQUEST_CODE: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText ( getApplicationContext () , "Permission Granted" , Toast.LENGTH_LONG ).show ();
+                    View view = LayoutInflater.from ( PaintingOneActivity.this ).inflate ( R.layout.toast,null,false );
+                    TextView textView = view.findViewById ( R.id.toast_text );
+                    ImageView imageView = view.findViewById ( R.id.toast_image );
+                    textView.setText ( "Permission Granted" );
+                    Toast toast = new Toast ( getApplicationContext () );
+                    toast.setView ( view );
+                    toast.show ();
                 } else {
-                    Toast.makeText ( getApplicationContext () , "Permission Denied" , Toast.LENGTH_LONG ).show ();
+                    View view = LayoutInflater.from ( PaintingOneActivity.this ).inflate ( R.layout.toast,null,false );
+                    TextView textView = view.findViewById ( R.id.toast_text );
+                    ImageView imageView = view.findViewById ( R.id.toast_image );
+                    textView.setText ( "Permission Denied" );
+                    Toast toast = new Toast ( getApplicationContext () );
+                    toast.setView ( view );
+                    toast.show ();
                 }
                 break;
             }
@@ -453,7 +471,13 @@ public class PaintingOneActivity extends AppCompatActivity {
         try {
             FileOutputStream fileOutputStream = new FileOutputStream ( folder+File.separator+fileName );
             bitmap.compress ( Bitmap.CompressFormat.PNG,100,fileOutputStream );
-            Toast.makeText ( this,"Picture Saved",Toast.LENGTH_SHORT ).show ();
+            View view = LayoutInflater.from ( PaintingOneActivity.this ).inflate ( R.layout.toast,null,false );
+            TextView textView = view.findViewById ( R.id.toast_text );
+            ImageView imageView = view.findViewById ( R.id.toast_image );
+            textView.setText ( "Picture saved" );
+            Toast toast = new Toast ( getApplicationContext () );
+            toast.setView ( view );
+            toast.show ();
         } catch (FileNotFoundException e) {
             e.printStackTrace ();
         }

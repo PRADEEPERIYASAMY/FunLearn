@@ -169,6 +169,36 @@ public class AlphabetWriteAcitivity extends AppCompatActivity {
             }
         } );
 
+        final  Button info = findViewById ( R.id.info );
+        info.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick( View v ) {
+                mediaPlayer1.start ();
+                final AlertDialog.Builder builder = new AlertDialog.Builder ( AlphabetWriteAcitivity.this,R.style.CustomDialog );
+                View view = LayoutInflater.from ( AlphabetWriteAcitivity.this ).inflate ( R.layout.about_dialog,null,false );
+
+                Button close = view.findViewById ( R.id.info_close );
+                TextView infoText = view.findViewById ( R.id.info_text );
+
+                infoText.setText ( "In this page writing space is provided for user to write the alphabet given to copy. If user write the alphabet properly positive result will be shown." );
+
+                final AlertDialog alertDialog = builder.create ();
+                alertDialog.setView ( view );
+
+                close.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick( View v ) {
+                        mediaPlayer.start ();
+                        alertDialog.cancel ();
+                        full ();
+                    }
+                } );
+
+                alertDialog.setCanceledOnTouchOutside ( false );
+                alertDialog.show ();
+            }
+        } );
+
     }
 
     @Override
@@ -266,7 +296,12 @@ public class AlphabetWriteAcitivity extends AppCompatActivity {
         } ).addOnFailureListener ( new OnFailureListener () {
             @Override
             public void onFailure( @NonNull Exception e ) {
-                Toast.makeText ( getApplicationContext (), "Detection Failed", Toast.LENGTH_SHORT ).show ();
+                View view = LayoutInflater.from ( AlphabetWriteAcitivity.this ).inflate ( R.layout.toast,null,false );
+                TextView textView = view.findViewById ( R.id.toast_text );
+                textView.setText ( "Detection Failed" );
+                Toast toast = new Toast ( getApplicationContext () );
+                toast.setView ( view );
+                toast.show ();
             }
         } );
     }

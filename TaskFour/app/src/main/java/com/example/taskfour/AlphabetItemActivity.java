@@ -22,7 +22,7 @@ public class AlphabetItemActivity extends AppCompatActivity {
 
     private RecyclerView alphabetItemRecyclerView;
     private Button back;
-    private MediaPlayer mediaPlayer;
+    private MediaPlayer mediaPlayer,mediaPlayer1;
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -44,6 +44,7 @@ public class AlphabetItemActivity extends AppCompatActivity {
 
         Main2Activity.mediaPlayer.start ();
         mediaPlayer = new MediaPlayer ().create(getApplicationContext (),R.raw.negative);
+        mediaPlayer1 = new MediaPlayer ().create ( getApplicationContext () , R.raw.rubberone );
 
         alphabetItemRecyclerView = findViewById ( R.id.recycler_alphabet );
         back = findViewById ( R.id.back );
@@ -58,6 +59,36 @@ public class AlphabetItemActivity extends AppCompatActivity {
             public void onClick( View v ) {
                 mediaPlayer.start ();
                 finish ();
+            }
+        } );
+
+        final  Button info = findViewById ( R.id.info );
+        info.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick( View v ) {
+                mediaPlayer.start ();
+                final AlertDialog.Builder builder = new AlertDialog.Builder ( AlphabetItemActivity.this,R.style.CustomDialog );
+                View view = LayoutInflater.from ( AlphabetItemActivity.this ).inflate ( R.layout.about_dialog,null,false );
+
+                Button close = view.findViewById ( R.id.info_close );
+                TextView infoText = view.findViewById ( R.id.info_text );
+
+                infoText.setText ( "This page shows the list of alphabets with small and capital letters, users are requested to select any one alphabet to know details about it." );
+
+                final AlertDialog alertDialog = builder.create ();
+                alertDialog.setView ( view );
+
+                close.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick( View v ) {
+                        mediaPlayer1.start ();
+                        alertDialog.cancel ();
+                        full ();
+                    }
+                } );
+
+                alertDialog.setCanceledOnTouchOutside ( false );
+                alertDialog.show ();
             }
         } );
 

@@ -163,6 +163,36 @@ public class GameOneActivity extends AppCompatActivity {
         button4.setOnClickListener ( onClickListener );
         button5.setOnClickListener ( onClickListener );
         button6.setOnClickListener ( onClickListener );
+
+        final Button info = findViewById ( R.id.info );
+        info.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick( View v ) {
+                mediaPlayer.start ();
+                final AlertDialog.Builder builder = new AlertDialog.Builder ( GameOneActivity.this,R.style.CustomDialog );
+                View view = LayoutInflater.from ( GameOneActivity.this ).inflate ( R.layout.about_dialog,null,false );
+
+                Button close = view.findViewById ( R.id.info_close );
+                TextView infoText = view.findViewById ( R.id.info_text );
+
+                infoText.setText ( "Users are allowed to choose the if they have minimum two stars in the previous levels except level one." );
+
+                final AlertDialog alertDialog = builder.create ();
+                alertDialog.setView ( view );
+
+                close.setOnClickListener ( new View.OnClickListener () {
+                    @Override
+                    public void onClick( View v ) {
+                        mediaPlayer1.start ();
+                        alertDialog.cancel ();
+                        full ();
+                    }
+                } );
+
+                alertDialog.setCanceledOnTouchOutside ( false );
+                alertDialog.show ();
+            }
+        } );
     }
 
     private void locksetter( List<String> values ) {
