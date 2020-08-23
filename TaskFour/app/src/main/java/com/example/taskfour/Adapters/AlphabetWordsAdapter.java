@@ -17,8 +17,8 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.taskfour.AlphabetInfoActivity;
 import com.example.taskfour.R;
-import com.example.taskfour.alphabets.AlphabetImagesAndNames;
 
 import java.util.Locale;
 
@@ -43,8 +43,8 @@ public class AlphabetWordsAdapter extends RecyclerView.Adapter<AlphabetWordsAdap
 
     @Override
     public void onBindViewHolder( @NonNull AlphabetWordsAdapter.MyViewHolder holder, int position ) {
-        holder.textView.setText ( AlphabetImagesAndNames.name[id][position] );
-        Glide.with ( context ).load ( AlphabetImagesAndNames.images[id][position] ).into ( holder.imageView );
+        holder.textView.setText ( AlphabetInfoActivity.names.get ( position ) );
+        Glide.with ( context ).load ( AlphabetInfoActivity.images.get ( position ) ).into ( holder.imageView );
     }
 
     @Override

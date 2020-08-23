@@ -7,11 +7,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.taskfour.AlphabetMatchActivity;
 import com.example.taskfour.R;
-import com.example.taskfour.alphabets.Match;
 
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class MatchAdapter extends RecyclerView.Adapter<MatchAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder( @NonNull MatchAdapter.MyViewHolder holder , int position ) {
-        holder.textView.setText ( Match.name[Integer.parseInt ( index.get ( position ) )] );
+        holder.textView.setText ( AlphabetMatchActivity.names.get ( Integer.parseInt ( index.get ( position ) ) ) );
     }
 
     @Override

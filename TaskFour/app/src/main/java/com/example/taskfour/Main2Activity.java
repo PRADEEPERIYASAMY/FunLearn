@@ -9,7 +9,9 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -19,6 +21,7 @@ import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,7 +35,7 @@ public class Main2Activity extends AppCompatActivity {
     private Button buttonOne,buttonTwo,buttonThree,buttonFour,buttonFive,buttonSix,buttonSeven,buttonEight,logOut;
     private TextView label;
     public static MediaPlayer mediaPlayer;
-    private MediaPlayer mediaPlayer2;
+    private MediaPlayer mediaPlayer2,mediaPlayer1;
     private CardView c1,c2,c3,c4,c5,c6,c7,c8;
     private static int clicked = 0;
     private FirebaseAuth mAuth;
@@ -62,6 +65,7 @@ public class Main2Activity extends AppCompatActivity {
         mediaPlayer.setLooping ( true );
         mediaPlayer.setVolume ( 0.4f,0.4f );
         mediaPlayer2 = new MediaPlayer ().create(getApplicationContext (),R.raw.rubberone);
+        mediaPlayer1 = new MediaPlayer ().create(getApplicationContext (),R.raw.negative);
 
         Toolbar toolbar = findViewById ( R.id.toolbar );
         setSupportActionBar ( toolbar );
@@ -183,6 +187,15 @@ public class Main2Activity extends AppCompatActivity {
                 finish ();
             }
         } );
+
+        Button settings = findViewById ( R.id.setting );
+        settings.setOnClickListener ( new View.OnClickListener () {
+            @Override
+            public void onClick( View v ) {
+                volume ();
+            }
+        } );
+
     }
 
     @Override
@@ -221,7 +234,7 @@ public class Main2Activity extends AppCompatActivity {
         yes.setOnClickListener ( new View.OnClickListener () {
             @Override
             public void onClick( View v ) {
-                finish ();
+                System.exit ( 0 );
             }
         } );
         alertDialog.setCanceledOnTouchOutside ( false );
@@ -249,5 +262,69 @@ public class Main2Activity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
+
+    private void volume(){
+        try
+        {
+            setVolumeControlStream(AudioManager.STREAM_MUSIC);
+            mediaPlayer1.start ();
+            AlertDialog.Builder builder = new AlertDialog.Builder ( Main2Activity.this,R.style.CustomDialog);
+            View view = LayoutInflater.from (Main2Activity.this).inflate ( R.layout.dialog,null,false );
+            TextView toolsSelected = view.findViewById ( R.id.status_tools_selected );
+            Button button = view.findViewById ( R.id.yes );
+            final TextView statusSize = view.findViewById ( R.id.status_size );
+            ImageView ivTools = view.findViewById ( R.id.iv_tools );
+            ivTools.setImageResource ( R.drawable.volume );
+            SeekBar seekBar = view.findViewById ( R.id.seekbar_size );
+            final AudioManager audioManager = (AudioManager) getSystemService( Context.AUDIO_SERVICE);
+            seekBar.setMax(audioManager
+                    .getStreamMaxVolume(AudioManager.STREAM_MUSIC));
+            seekBar.setProgress(audioManager
+                    .getStreamVolume(AudioManager.STREAM_MUSIC));
+
+            toolsSelected.setText ( "Volume" );
+            statusSize.setText ( "Current Volume :"+String.valueOf ( seekBar.getProgress () ) );
+
+            final AlertDialog alertDialog = builder.create ();
+            alertDialog.setView ( view );
+
+            seekBar.setOnSeekBarChangeListener ( new SeekBar.OnSeekBarChangeListener () {
+                @Override
+                public void onStopTrackingTouch(SeekBar arg)
+                {
+                }
+
+                @Override
+                public void onStartTrackingTouch(SeekBar arg)
+                {
+                }
+
+                @Override
+                public void onProgressChanged(SeekBar arg, int progress, boolean b)
+                {
+                    audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,
+                            progress, 0);
+                    statusSize.setText ( "Current Volume :"+String.valueOf ( progress ) );
+                }
+            } );
+
+            button.setOnClickListener ( new View.OnClickListener () {
+                @Override
+                public void onClick( View v ) {
+                    mediaPlayer2.start ();
+                    alertDialog.cancel ();
+                    full ();
+                }
+            } );
+
+            alertDialog.setCanceledOnTouchOutside ( false );
+            alertDialog.show ();
+
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 }

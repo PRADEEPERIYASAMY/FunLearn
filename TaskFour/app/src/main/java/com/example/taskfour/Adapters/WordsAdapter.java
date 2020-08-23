@@ -18,7 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.taskfour.R;
-import com.example.taskfour.alphabets.AlphabetsWords;
+import com.example.taskfour.WordActivity;
 
 import java.util.Locale;
 
@@ -42,8 +42,8 @@ public class WordsAdapter extends RecyclerView.Adapter<WordsAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder( @NonNull WordsAdapter.MyViewHolder holder , int position ) {
-        holder.textView.setText ( AlphabetsWords.words[id-1][position] );
-        Glide.with ( context ).load (  AlphabetsWords.images[id-1][position] ).into ( holder.imageView );
+        holder.textView.setText ( WordActivity.names.get ( position ) );
+        Glide.with ( context ).load (  WordActivity.images.get ( position ) ).into ( holder.imageView );
     }
 
     @Override

@@ -272,6 +272,7 @@ public class PaintView extends View {
     }
 
     private void touchUp() {
+
         mPath.reset ();
     }
 
@@ -294,7 +295,6 @@ public class PaintView extends View {
         mPath.moveTo ( x,y );
         mX = x;
         mY = y;
-
     }
 
     public Bitmap getBitmap(){

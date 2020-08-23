@@ -1,5 +1,6 @@
 package com.example.taskfour;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
@@ -18,12 +19,19 @@ import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.taskfour.Adapters.AlphabetWordsAdapter;
 import com.example.taskfour.alphabets.ListOfAlphabets;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -37,6 +45,8 @@ public class AlphabetInfoActivity extends AppCompatActivity {
     private Button letter,sentence,back;
     private MediaPlayer mediaPlayer,mediaPlayer2;
     private CardView c1,c2;
+    public static List<String> names = new ArrayList<> (  );
+    public static List<String> images = new ArrayList<> (  );
 
 
     @Override
@@ -62,13 +72,6 @@ public class AlphabetInfoActivity extends AppCompatActivity {
         mediaPlayer = new MediaPlayer ().create(getApplicationContext (),R.raw.rubberone);
         mediaPlayer2 = new MediaPlayer ().create(getApplicationContext (),R.raw.negative);
 
-        recyclerView = findViewById ( R.id.alphabet_word_recycler );
-        recyclerView.setHasFixedSize ( true );
-        recyclerView.setLayoutManager ( new GridLayoutManager ( getApplicationContext (),2) );
-
-        AlphabetWordsAdapter alphabetWordsAdapter = new AlphabetWordsAdapter ( getApplicationContext (),id );
-        recyclerView.setAdapter ( alphabetWordsAdapter );
-
         alphabetCaps = findViewById ( R.id.alphabet_caps );
         alphabetSmall = findViewById ( R.id.alphabet_small );
         alphabetSentence = findViewById ( R.id.alphabet_sentence );
@@ -81,61 +84,7 @@ public class AlphabetInfoActivity extends AppCompatActivity {
         alphabetCaps.setText ( ListOfAlphabets.alphabets[id].toUpperCase () );
         alphabetSmall.setText ( ListOfAlphabets.alphabets[id].toLowerCase () );
 
-        for (int i = 0;i<ListOfAlphabets.sentences[id].split ( ListOfAlphabets.alphabets[id] ).length;i++){
-            alphabetWord.add ( ListOfAlphabets.sentences[id].split ( ListOfAlphabets.alphabets[id] )[i] );
-        }
-        for (int i= 0;i<alphabetWord.size ();i++){
-            String text = "<font color=#F9333333>"+alphabetWord.get ( i )+"</font>";
-            String text2 = "<font color=#FF0000>"+ListOfAlphabets.alphabets[id]+"</font>";
-            String text3 = "<font color=#FF0000>"+ListOfAlphabets.alphabetsUpper[id]+"</font>";
-
-            if ( i ==0 && alphabetWord.get ( 0 ).length () == 0){
-                alphabetSentence.append ( Html.fromHtml ( text ) );
-                alphabetSentence.append ( Html.fromHtml ( text3 ));
-            }
-            else if (i<alphabetWord.size ()-1){
-                alphabetSentence.append ( Html.fromHtml ( text ) );
-                alphabetSentence.append ( Html.fromHtml ( text2 ) );
-            }
-            else {
-                alphabetSentence.append ( Html.fromHtml ( text ) );
-            }
-        }
-
-        textToSpeech = new TextToSpeech ( getApplicationContext (), new TextToSpeech.OnInitListener () {
-            @Override
-            public void onInit( int status ) {
-                if (status!=TextToSpeech.ERROR){
-                    textToSpeech.setLanguage ( Locale.UK );
-                }
-            }
-        } );
-
-        View.OnClickListener onClickListener = new View.OnClickListener () {
-            @Override
-            public void onClick( final View v ) {
-                mediaPlayer.start ();
-                new Handler (  ).postDelayed ( new Runnable () {
-                    @Override
-                    public void run() {
-                        switch (v.getId ()){
-                            case R.id.alphabet_speak_button:
-                                c1.startAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (),R.anim.button ) );
-                                textToSpeech.speak ( alphabetSmall.getText ().toString (),TextToSpeech.QUEUE_FLUSH,null );
-                                break;
-                            case R.id.alphabet_sentence_speak_button:
-                                c2.startAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (),R.anim.button ) );
-                                textToSpeech.speak ( alphabetSentence.getText ().toString (),TextToSpeech.QUEUE_FLUSH,null );
-                                break;
-                        }
-                    }
-                },250 );
-
-            }
-        };
-
-        letter.setOnClickListener ( onClickListener );
-        sentence.setOnClickListener ( onClickListener );
+        fetchData ();
 
         back.setOnClickListener ( new View.OnClickListener () {
             @Override
@@ -236,5 +185,106 @@ public class AlphabetInfoActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause ();
         overridePendingTransition ( android.R.anim.fade_in,android.R.anim.fade_out );
+    }
+    private void fetchData(){
+        final ProgressBar progressBar = findViewById ( R.id.progressBar2 );
+        progressBar.setMax ( 100 );
+        progressBar.setVisibility ( View.VISIBLE );
+        DatabaseReference alphaRef = FirebaseDatabase.getInstance ().getReference ().child ( "AlphabetImagesAndNames" );
+        final DatabaseReference wordsRef = FirebaseDatabase.getInstance ().getReference ().child ( "ListOfAlphabets" );
+
+        alphaRef.addListenerForSingleValueEvent ( new ValueEventListener () {
+            @Override
+            public void onDataChange( @NonNull DataSnapshot dataSnapshot ) {
+                if (dataSnapshot.exists ()){
+                    String n = dataSnapshot.child ( "Names" ).child ( String.valueOf ( id+1 ) ).getValue ().toString ();
+                    String img = dataSnapshot.child ( "Images" ).child ( String.valueOf ( id+1 ) ).getValue ().toString ();
+                    names = Arrays.asList ( n.split ( "----------" ) );
+                    images = Arrays.asList ( img.split ( "----------" ) );
+
+                    recyclerView = findViewById ( R.id.alphabet_word_recycler );
+                    recyclerView.setHasFixedSize ( true );
+                    recyclerView.setLayoutManager ( new GridLayoutManager ( getApplicationContext (),2) );
+
+                    AlphabetWordsAdapter alphabetWordsAdapter = new AlphabetWordsAdapter ( getApplicationContext (),id );
+                    recyclerView.setAdapter ( alphabetWordsAdapter );
+
+                    wordsRef.addListenerForSingleValueEvent ( new ValueEventListener () {
+                        @Override
+                        public void onDataChange( @NonNull DataSnapshot dataSnapshot ) {
+                            if (dataSnapshot.exists ()){
+                                String word = dataSnapshot.child ( "Words" ).getValue ().toString ().split ( "----------" )[id];
+                                for (int i = 0;i<word.split ( ListOfAlphabets.alphabets[id] ).length;i++){
+                                    alphabetWord.add ( word.split ( ListOfAlphabets.alphabets[id] )[i] );
+                                }
+                                for (int i= 0;i<alphabetWord.size ();i++){
+                                    String text = "<font color=#F9333333>"+alphabetWord.get ( i )+"</font>";
+                                    String text2 = "<font color=#FF0000>"+ListOfAlphabets.alphabets[id]+"</font>";
+                                    String text3 = "<font color=#FF0000>"+ListOfAlphabets.alphabetsUpper[id]+"</font>";
+
+                                    if ( i ==0 && alphabetWord.get ( 0 ).length () == 0){
+                                        alphabetSentence.append ( Html.fromHtml ( text ) );
+                                        alphabetSentence.append ( Html.fromHtml ( text3 ));
+                                    }
+                                    else if (i<alphabetWord.size ()-1){
+                                        alphabetSentence.append ( Html.fromHtml ( text ) );
+                                        alphabetSentence.append ( Html.fromHtml ( text2 ) );
+                                    }
+                                    else {
+                                        alphabetSentence.append ( Html.fromHtml ( text ) );
+                                    }
+                                }
+
+                                textToSpeech = new TextToSpeech ( getApplicationContext (), new TextToSpeech.OnInitListener () {
+                                    @Override
+                                    public void onInit( int status ) {
+                                        if (status!=TextToSpeech.ERROR){
+                                            textToSpeech.setLanguage ( Locale.UK );
+                                        }
+                                    }
+                                } );
+
+                                View.OnClickListener onClickListener = new View.OnClickListener () {
+                                    @Override
+                                    public void onClick( final View v ) {
+                                        mediaPlayer.start ();
+                                        new Handler (  ).postDelayed ( new Runnable () {
+                                            @Override
+                                            public void run() {
+                                                switch (v.getId ()){
+                                                    case R.id.alphabet_speak_button:
+                                                        c1.startAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (),R.anim.button ) );
+                                                        textToSpeech.speak ( alphabetSmall.getText ().toString (),TextToSpeech.QUEUE_FLUSH,null );
+                                                        break;
+                                                    case R.id.alphabet_sentence_speak_button:
+                                                        c2.startAnimation ( AnimationUtils.loadAnimation ( getApplicationContext (),R.anim.button ) );
+                                                        textToSpeech.speak ( alphabetSentence.getText ().toString (),TextToSpeech.QUEUE_FLUSH,null );
+                                                        break;
+                                                }
+                                            }
+                                        },250 );
+
+                                    }
+                                };
+
+                                letter.setOnClickListener ( onClickListener );
+                                sentence.setOnClickListener ( onClickListener );
+                            }
+                            progressBar.setVisibility ( View.INVISIBLE );
+                        }
+
+                        @Override
+                        public void onCancelled( @NonNull DatabaseError databaseError ) {
+
+                        }
+                    } );
+                }
+            }
+
+            @Override
+            public void onCancelled( @NonNull DatabaseError databaseError ) {
+
+            }
+        } );
     }
 }

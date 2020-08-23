@@ -1,27 +1,29 @@
 package com.example.taskfour;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
-import android.content.Context;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.taskfour.alphabets.AlphabetPhrases;
 import com.example.taskfour.alphabets.ListOfAlphabets;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,6 +40,7 @@ public class AlphabetCountActivity extends AppCompatActivity {
     private static int count;
     private MediaPlayer mediaPlayer,mediaPlayer1,mediaPlayer2,mediaPlayer3;
     private CardView c1,c2,c3,c4,c5;
+    private List<String> phrases = new ArrayList<> (  );
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -77,75 +80,7 @@ public class AlphabetCountActivity extends AppCompatActivity {
         c4 = findViewById ( R.id.c4 );
         c5 = findViewById ( R.id.c5 );
 
-        alphabet.clear ();
-        for (int i = 0; i < 26; i++) {
-            alphabet.add ( String.valueOf ( i ) );
-        }
-
-        master ();
-        final Animation animation = AnimationUtils.loadAnimation ( getApplicationContext (),R.anim.button );
-
-        View.OnClickListener onClickListener = new View.OnClickListener () {
-            @Override
-            public void onClick( View v ) {
-                mediaPlayer1.start ();
-                switch (v.getId ()){
-                    case R.id.option_one:
-                        c1.startAnimation ( animation );
-                        dissable ();
-                        if (String.valueOf ( count ).equals ( option1.getText ().toString () )){
-                            right ();
-                        }
-                        else {
-                            wrong();
-                        }
-                        break;
-                    case R.id.option_two:
-                        c2.startAnimation ( animation );
-                        dissable ();
-                        if (String.valueOf ( count ).equals ( option2.getText ().toString () )){
-                            right ();
-                        }
-                        else {
-                            wrong ();
-                        }
-                        break;
-                    case R.id.option_three:
-                        c3.startAnimation ( animation );
-                        dissable ();
-                        if (String.valueOf ( count ).equals ( option3.getText ().toString () )){
-                            right ();
-                        }
-                        else {
-                            wrong();
-                        }
-                        break;
-                    case R.id.retry:
-                        c4.startAnimation ( animation );
-                        enabled ();
-                        wrong.setVisibility ( View.INVISIBLE );
-                        container.setVisibility ( View.VISIBLE );
-                        break;
-                    case R.id.next:
-                        c5.startAnimation ( animation );
-                        enabled ();
-                        master ();
-                        mediaPlayer2.stop ();
-                        break;
-                }
-            }
-        };
-        option1.setOnClickListener ( onClickListener );
-        option2.setOnClickListener ( onClickListener );
-        option3.setOnClickListener ( onClickListener );
-        retry.setOnClickListener ( onClickListener );
-        next.setOnClickListener ( onClickListener );
-        back.setOnClickListener ( new View.OnClickListener () {
-            @Override
-            public void onClick( View v ) {
-                exit ();
-            }
-        } );
+        fetchData ();
 
         final Button info = findViewById ( R.id.info );
         info.setOnClickListener ( new View.OnClickListener () {
@@ -279,9 +214,9 @@ public class AlphabetCountActivity extends AppCompatActivity {
         wrong.setVisibility ( View.INVISIBLE );
         container.setVisibility ( View.VISIBLE );
         int randomAlpha = (int)(Math.random ()*(alphabet.size ()-1));
-        int randomIndex = (int)(Math.random ()*(AlphabetPhrases.phrases[randomAlpha].length-1));
+        int randomIndex = (int)(Math.random ()*(phrases.get ( randomAlpha ).split ( "----------" ).length-1));
         count = 0;
-        container.setText ( AlphabetPhrases.phrases[ randomAlpha ][randomIndex] );
+        container.setText ( phrases.get ( randomAlpha ).split ( "----------" )[randomIndex] );
         for (int i = 0;i<container.getText ().toString ().length ();i++){
             if (Character.toString ( container.getText ().toString ().charAt ( i ) ).toLowerCase ().equals ( ListOfAlphabets.alphabets[randomAlpha].toLowerCase () )){
                 count++;
@@ -315,5 +250,93 @@ public class AlphabetCountActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
+    private void fetchData(){
+        DatabaseReference countRef = FirebaseDatabase.getInstance ().getReference ().child ( "AlphabetPhrases" );
+        countRef.addListenerForSingleValueEvent ( new ValueEventListener () {
+            @Override
+            public void onDataChange( @NonNull DataSnapshot dataSnapshot ) {
+                if (dataSnapshot.exists ()){
+                    for (int i = 0; i < dataSnapshot.getChildrenCount (); i++) {
+                        phrases.add ( dataSnapshot.child ( String.valueOf ( i+1 ) ).getValue ().toString () );
+                    }
+
+                    alphabet.clear ();
+                    for (int i = 0; i < 26; i++) {
+                        alphabet.add ( String.valueOf ( i ) );
+                    }
+
+                    master ();
+                    final Animation animation = AnimationUtils.loadAnimation ( getApplicationContext (),R.anim.button );
+
+                    View.OnClickListener onClickListener = new View.OnClickListener () {
+                        @Override
+                        public void onClick( View v ) {
+                            mediaPlayer1.start ();
+                            switch (v.getId ()){
+                                case R.id.option_one:
+                                    c1.startAnimation ( animation );
+                                    dissable ();
+                                    if (String.valueOf ( count ).equals ( option1.getText ().toString () )){
+                                        right ();
+                                    }
+                                    else {
+                                        wrong();
+                                    }
+                                    break;
+                                case R.id.option_two:
+                                    c2.startAnimation ( animation );
+                                    dissable ();
+                                    if (String.valueOf ( count ).equals ( option2.getText ().toString () )){
+                                        right ();
+                                    }
+                                    else {
+                                        wrong ();
+                                    }
+                                    break;
+                                case R.id.option_three:
+                                    c3.startAnimation ( animation );
+                                    dissable ();
+                                    if (String.valueOf ( count ).equals ( option3.getText ().toString () )){
+                                        right ();
+                                    }
+                                    else {
+                                        wrong();
+                                    }
+                                    break;
+                                case R.id.retry:
+                                    c4.startAnimation ( animation );
+                                    enabled ();
+                                    wrong.setVisibility ( View.INVISIBLE );
+                                    container.setVisibility ( View.VISIBLE );
+                                    break;
+                                case R.id.next:
+                                    c5.startAnimation ( animation );
+                                    enabled ();
+                                    master ();
+                                    mediaPlayer2.stop ();
+                                    break;
+                            }
+                        }
+                    };
+                    option1.setOnClickListener ( onClickListener );
+                    option2.setOnClickListener ( onClickListener );
+                    option3.setOnClickListener ( onClickListener );
+                    retry.setOnClickListener ( onClickListener );
+                    next.setOnClickListener ( onClickListener );
+                    back.setOnClickListener ( new View.OnClickListener () {
+                        @Override
+                        public void onClick( View v ) {
+                            exit ();
+                        }
+                    } );
+                }
+            }
+
+            @Override
+            public void onCancelled( @NonNull DatabaseError databaseError ) {
+
+            }
+        } );
     }
 }

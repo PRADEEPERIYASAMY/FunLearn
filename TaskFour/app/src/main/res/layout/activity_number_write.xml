@@ -160,7 +160,8 @@
                     android:text="A"
                     android:textAlignment="center"
                     android:textColor="#0024ED"
-                    android:textSize="160dp" />
+                    android:gravity="center"
+                    android:textSize="130sp" />
             </androidx.cardview.widget.CardView>
         </androidx.cardview.widget.CardView>
 

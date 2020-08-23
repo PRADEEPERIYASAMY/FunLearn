@@ -14,17 +14,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.taskfour.Adapters.MatchAdapter;
-import com.example.taskfour.alphabets.Match;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,6 +42,8 @@ public class AlphabetMatchActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private Button back;
     private MediaPlayer mediaPlayer,mediaPlayer1,mediaPlayer2;
+    public static List<String> names = new ArrayList<> (  );
+    private List<String> images = new ArrayList<> (  );
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -75,43 +81,7 @@ public class AlphabetMatchActivity extends AppCompatActivity {
         t4 = findViewById ( R.id.t4 );
         t5 = findViewById ( R.id.t5 );
 
-        all.clear ();
-        selected.clear ();
-        shuffled.clear ();
-
-        for (int i = 0; i < Match.name.length; i++) {
-            all.add ( String.valueOf ( i ) );
-        }
-
-        for (int i = 0; i < 5; i++) {
-            int index = (int) ( Math.random () * all.size () ) -1;
-            selected.add ( all.get ( index ) );
-            all.remove ( index );
-        }
-
-        Collections.shuffle ( selected );
-
-        for (int i = 0; i < 5; i++) {
-            shuffled.add ( selected.get ( i ) );
-        }
-
-        Collections.shuffle ( shuffled );
-
-        Glide.with ( getApplicationContext () ).load ( Match.images[Integer.parseInt ( selected.get ( 0 ) )] ).into ( i1 );
-        Glide.with ( getApplicationContext () ).load ( Match.images[Integer.parseInt ( selected.get ( 1 ) )] ).into ( i2 );
-        Glide.with ( getApplicationContext () ).load ( Match.images[Integer.parseInt ( selected.get ( 2 ) )] ).into ( i3 );
-        Glide.with ( getApplicationContext () ).load ( Match.images[Integer.parseInt ( selected.get ( 3 ) )] ).into ( i4 );
-        Glide.with ( getApplicationContext () ).load ( Match.images[Integer.parseInt ( selected.get ( 4 ) )] ).into ( i5 );
-
-        t1.setText ( selected.get ( 0 ) );
-        t2.setText ( selected.get ( 1 ) );
-        t3.setText ( selected.get ( 2 ) );
-        t4.setText ( selected.get ( 3 ) );
-        t5.setText ( selected.get ( 4 ) );
-
-        recyclerView.setHasFixedSize ( true );
-        recyclerView.setLayoutManager ( new LinearLayoutManager ( getApplicationContext () ) );
-        recyclerView.setAdapter ( new MatchAdapter ( getApplicationContext (),shuffled ) );
+        fetchData ();
 
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback (ItemTouchHelper.UP|ItemTouchHelper.DOWN|ItemTouchHelper.START|ItemTouchHelper.END,0) {
             @Override
@@ -160,8 +130,8 @@ public class AlphabetMatchActivity extends AppCompatActivity {
                         @Override
                         public void onClick( View v ) {
                             mediaPlayer1.start ();
-                            finish ();
                             startActivity ( new Intent ( getApplicationContext (),AlphabetMatchActivity.class ) );
+                            finish ();
                         }
                     } );
                     alertDialog.setCanceledOnTouchOutside ( false );
@@ -281,5 +251,66 @@ public class AlphabetMatchActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause ();
         overridePendingTransition ( android.R.anim.fade_in,android.R.anim.fade_out );
+    }
+
+    private void fetchData(){
+        final ProgressBar progressBar = findViewById ( R.id.progressBar2 );
+        progressBar.setMax ( 100 );
+        progressBar.setVisibility ( View.VISIBLE );
+        DatabaseReference matchRef = FirebaseDatabase.getInstance ().getReference ().child ( "Match" );
+        matchRef.addListenerForSingleValueEvent ( new ValueEventListener () {
+            @Override
+            public void onDataChange( @NonNull DataSnapshot dataSnapshot ) {
+                if (dataSnapshot.exists ()){
+                    String n = dataSnapshot.child ( "Names" ).getValue ().toString ();
+                    String im = dataSnapshot.child ( "Images" ).getValue ().toString ();
+                    names = Arrays.asList ( n.split ( "----------" ) );
+                    images = Arrays.asList ( im.split ( "----------" ) );
+                    all.clear ();
+                    selected.clear ();
+                    shuffled.clear ();
+
+                    for (int i = 0; i < names.size (); i++) {
+                        all.add ( String.valueOf ( i ) );
+                    }
+
+                    for (int i = 0; i < 5; i++) {
+                        int index = (int) ( Math.random () * all.size () ) -1;
+                        selected.add ( all.get ( index ) );
+                        all.remove ( index );
+                    }
+
+                    Collections.shuffle ( selected );
+
+                    for (int i = 0; i < 5; i++) {
+                        shuffled.add ( selected.get ( i ) );
+                    }
+
+                    Collections.shuffle ( shuffled );
+
+                    Glide.with ( getApplicationContext () ).load ( images.get ( Integer.parseInt ( selected.get ( 0 ) ) ) ).into ( i1 );
+                    Glide.with ( getApplicationContext () ).load ( images.get ( Integer.parseInt ( selected.get ( 1 ) ) ) ).into ( i2 );
+                    Glide.with ( getApplicationContext () ).load ( images.get ( Integer.parseInt ( selected.get ( 2 ) ) ) ).into ( i3 );
+                    Glide.with ( getApplicationContext () ).load ( images.get ( Integer.parseInt ( selected.get ( 3 ) ) ) ).into ( i4 );
+                    Glide.with ( getApplicationContext () ).load ( images.get ( Integer.parseInt ( selected.get ( 4 ) ) ) ).into ( i5 );
+
+                    t1.setText ( selected.get ( 0 ) );
+                    t2.setText ( selected.get ( 1 ) );
+                    t3.setText ( selected.get ( 2 ) );
+                    t4.setText ( selected.get ( 3 ) );
+                    t5.setText ( selected.get ( 4 ) );
+
+                    recyclerView.setHasFixedSize ( true );
+                    recyclerView.setLayoutManager ( new LinearLayoutManager ( getApplicationContext () ) );
+                    recyclerView.setAdapter ( new MatchAdapter ( getApplicationContext (),shuffled ) );
+                    progressBar.setVisibility ( View.INVISIBLE );
+                }
+            }
+
+            @Override
+            public void onCancelled( @NonNull DatabaseError databaseError ) {
+                progressBar.setVisibility ( View.INVISIBLE );
+            }
+        } );
     }
 }

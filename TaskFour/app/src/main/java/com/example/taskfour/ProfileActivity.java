@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
     private Button profileUpdate;
     private DatabaseReference profRef;
     private FirebaseAuth mAuth;
-    private String url = null;
+    private static String url = null;
     private MediaPlayer mediaPlayer,mediaPlayer1;
 
     @Override
@@ -236,6 +236,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
     }
+
     private void full(){
         final View decorView = getWindow().getDecorView();
         decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE

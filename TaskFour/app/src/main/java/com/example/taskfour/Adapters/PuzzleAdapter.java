@@ -12,7 +12,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.taskfour.Puzzleimages.PuzzleImages;
+import com.bumptech.glide.Glide;
 import com.example.taskfour.R;
 
 import java.util.ArrayList;
@@ -21,10 +21,10 @@ import java.util.List;
 public class PuzzleAdapter extends RecyclerView.Adapter<PuzzleAdapter.MyViewHolder> {
 
     Context context;
-    List<Integer> id ;
-    List<Integer> original;
+    List<String> id ;
+    List<String> original;
 
-    public PuzzleAdapter( Context context, List<Integer> id,List<Integer> original ) {
+    public PuzzleAdapter( Context context, List<String> id,List<String> original ) {
         this.context = context;
         this.id = id;
         this.original = original;
@@ -40,7 +40,7 @@ public class PuzzleAdapter extends RecyclerView.Adapter<PuzzleAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder( @NonNull MyViewHolder holder, int position ) {
-        holder.imageView.setImageResource ( id.get ( position ) );
+        Glide.with ( context ).load ( id.get ( position ) ).into ( holder.imageView );
         holder.textView.setText ( String.valueOf ( original.indexOf ( id.get ( position ) )+1 ) );
     }
 

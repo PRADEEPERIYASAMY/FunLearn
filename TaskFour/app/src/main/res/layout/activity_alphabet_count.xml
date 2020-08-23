@@ -203,7 +203,7 @@
                     android:layout_marginRight="20dp"
                     android:layout_marginBottom="50dp"
                     android:textColor="@color/white"
-                    android:text="How much wood would "
+                    android:text=""
                     android:fontFamily="@font/chalk"
                     android:id="@+id/container"/>
 
@@ -212,7 +212,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_margin="20dp"
-                    android:src="@drawable/boom" />
+                    android:src="@drawable/boom"
+                    android:visibility="invisible"/>
             </androidx.cardview.widget.CardView>
 
         </androidx.cardview.widget.CardView>

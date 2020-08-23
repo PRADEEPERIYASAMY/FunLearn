@@ -13,17 +13,21 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.taskfour.ColouringImages.ColouringImage;
+import com.bumptech.glide.Glide;
 import com.example.taskfour.PaintingTwoActivity;
 import com.example.taskfour.R;
+
+import java.util.List;
 
 public class ColouringImageAdapter extends RecyclerView.Adapter<ColouringImageAdapter.MyViewHolder> {
 
     Context context;
     MediaPlayer mediaPlayer;
+    List<String> colouringUrls;
 
-    public ColouringImageAdapter( Context context ) {
+    public ColouringImageAdapter( Context context , List<String> colouringUrls ) {
         this.context = context;
+        this.colouringUrls = colouringUrls;
     }
 
     @NonNull
@@ -34,7 +38,7 @@ public class ColouringImageAdapter extends RecyclerView.Adapter<ColouringImageAd
 
     @Override
     public void onBindViewHolder( @NonNull ColouringImageAdapter.MyViewHolder holder , int position ) {
-        holder.imageView.setImageResource ( ColouringImage.id[position] );
+        Glide.with ( context ).load ( colouringUrls.get ( position ) ).into ( holder.imageView );
     }
 
     @Override
@@ -58,7 +62,7 @@ public class ColouringImageAdapter extends RecyclerView.Adapter<ColouringImageAd
                     mediaPlayer.start ();
                     cardView.startAnimation ( AnimationUtils.loadAnimation ( context,R.anim.button ) );
                     Intent intent =  new Intent ( context, PaintingTwoActivity.class );
-                    intent.putExtra ( "imageid",ColouringImage.id[getAdapterPosition ()] );
+                    intent.putExtra ( "imageid",colouringUrls.get ( getAdapterPosition () ) );
                     intent.setFlags ( Intent.FLAG_ACTIVITY_NEW_TASK );
                     context.startActivity ( intent);
                 }

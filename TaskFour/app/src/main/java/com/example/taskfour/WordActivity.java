@@ -1,5 +1,6 @@
 package com.example.taskfour;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -14,9 +15,19 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.example.taskfour.Adapters.WordsAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class WordActivity extends AppCompatActivity {
 
@@ -25,6 +36,8 @@ public class WordActivity extends AppCompatActivity {
     private TextView textView;
     private Button back;
     private MediaPlayer mediaPlayer,mediaPlayer1;
+    public static List<String> names = new ArrayList<> (  );
+    public static List<String> images = new ArrayList<> (  );
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -51,73 +64,56 @@ public class WordActivity extends AppCompatActivity {
         textView = findViewById ( R.id.label );
         back = findViewById ( R.id.back );
 
-        recyclerView.setHasFixedSize ( true );
-        recyclerView.setLayoutManager ( new GridLayoutManager ( getApplicationContext (),2 ) );
+        fetchData ();
 
         switch (id){
             case 1:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),1 ) );
-                textView.setText ( "Fruits     " );
+                textView.setText ( "Fruits" );
                 break;
             case 2:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),2 ) );
-                textView.setText ( "Vegetables      " );
+                textView.setText ( "Vegetables" );
                 break;
             case 3:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),3 ) );
-                textView.setText ( "Spices       " );
+                textView.setText ( "Spices" );
                 break;
             case 4:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),4 ) );
-                textView.setText ( "Space       " );
+                textView.setText ( "Space" );
                 break;
             case 5:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),5 ) );
-                textView.setText ( "Musical      " );
+                textView.setText ( "Musical" );
                 break;
             case 6:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),6 ) );
-                textView.setText ( "Birds       " );
+                textView.setText ( "Birds" );
                 break;
             case 7:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),7 ) );
-                textView.setText ( "Wild      " );
+                textView.setText ( "Wild" );
                 break;
             case 8:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),8 ) );
-                textView.setText ( "Aquatic       " );
+                textView.setText ( "Aquatic" );
                 break;
             case 9:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),9 ) );
-                textView.setText ( "Domestic     " );
+                textView.setText ( "Domestic" );
                 break;
             case 10:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),10 ) );
-                textView.setText ( "Insects       " );
+                textView.setText ( "Insects" );
                 break;
             case 11:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),11 ) );
-                textView.setText ( "Colors       " );
+                textView.setText ( "Colors" );
                 break;
             case 12:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),12 ) );
-                textView.setText ( "School       " );
+                textView.setText ( "School" );
                 break;
             case 13:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),13 ) );
-                textView.setText ( "Vehicles       " );
+                textView.setText ( "Vehicles" );
                 break;
             case 14:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),14 ) );
-                textView.setText ( "Sports       " );
+                textView.setText ( "Sports" );
                 break;
             case 15:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),15 ) );
-                textView.setText ( "Jobs       " );
+                textView.setText ( "Jobs" );
                 break;
             case 16:
-                recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),16 ) );
-                textView.setText ( "Shapes       " );
+                textView.setText ( "Shapes" );
                 break;
         }
 
@@ -220,5 +216,32 @@ public class WordActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause ();
         overridePendingTransition ( android.R.anim.fade_in,android.R.anim.fade_out );
+    }
+
+    private void fetchData(){
+        final ProgressBar progressBar = findViewById ( R.id.progressBar2 );
+        progressBar.setMax ( 100 );
+        progressBar.setVisibility ( View.VISIBLE );
+        DatabaseReference wordRef = FirebaseDatabase.getInstance ().getReference ().child ( "AlphabetWords" );
+        wordRef.addListenerForSingleValueEvent ( new ValueEventListener () {
+            @Override
+            public void onDataChange( @NonNull DataSnapshot dataSnapshot ) {
+                if (dataSnapshot.exists ()){
+                    String n = dataSnapshot.child ( "Words" ).child ( String.valueOf ( id ) ).getValue ().toString ();
+                    String im = dataSnapshot.child ( "Images" ).child ( String.valueOf ( id ) ).getValue ().toString ();
+                    names = Arrays.asList ( n.split ( "----------" ) );
+                    images = Arrays.asList ( im.split ( "----------" ) );
+                    recyclerView.setHasFixedSize ( true );
+                    recyclerView.setLayoutManager ( new GridLayoutManager ( getApplicationContext (),2 ) );
+                    recyclerView.setAdapter ( new WordsAdapter ( getApplicationContext (),id ) );
+                    progressBar.setVisibility ( View.INVISIBLE );
+                }
+            }
+
+            @Override
+            public void onCancelled( @NonNull DatabaseError databaseError ) {
+                progressBar.setVisibility ( View.INVISIBLE );
+            }
+        } );
     }
 }

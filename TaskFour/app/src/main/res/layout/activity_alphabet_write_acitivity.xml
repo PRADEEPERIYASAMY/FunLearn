@@ -160,7 +160,8 @@
                     android:text="A"
                     android:textAlignment="center"
                     android:textColor="#0024ED"
-                    android:textSize="160dp" />
+                    android:textSize="130sp"
+                    android:gravity="center"/>
             </androidx.cardview.widget.CardView>
         </androidx.cardview.widget.CardView>
 
@@ -457,6 +458,15 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/boom"
                 android:id="@+id/gif"/>
+            <ProgressBar
+                android:id="@+id/progressBar2"
+                style="@android:style/Widget.Holo.Light.ProgressBar"
+                android:layout_width="70dp"
+                android:layout_height="100dp"
+                android:layout_marginLeft="165dp"
+                android:layout_marginTop="450dp"
+                android:visibility="invisible"
+                />
         </androidx.cardview.widget.CardView>
     </androidx.cardview.widget.CardView>
 

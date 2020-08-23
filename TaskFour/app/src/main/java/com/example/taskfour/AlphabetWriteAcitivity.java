@@ -16,21 +16,27 @@ import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.taskfour.Widget.PaintView;
-import com.example.taskfour.alphabets.AlphabetImagesAndNames;
 import com.example.taskfour.alphabets.ListOfAlphabets;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.text.FirebaseVisionText;
 import com.google.firebase.ml.vision.text.FirebaseVisionTextDetector;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import pl.droidsonroids.gif.GifDrawable;
@@ -43,11 +49,14 @@ public class AlphabetWriteAcitivity extends AppCompatActivity {
     private Button submit,clear,next,back;
     private List<String> alphabets = new ArrayList<> (  );
     private List<String> indexAlphabets = new ArrayList<> (  );
+    private List<String> index = new ArrayList<> (  );
     private GifImageView gifImageView;
     private ImageView resultImage;
     private boolean block = false;
     private MediaPlayer mediaPlayer,mediaPlayer1,mediaPlayer2,mediaPlayer3;
     private CardView c1,c2,c3;
+    public static List<String> names = new ArrayList<> (  );
+    public static List<String> images = new ArrayList<> (  );
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -90,6 +99,8 @@ public class AlphabetWriteAcitivity extends AppCompatActivity {
             alphabets.add ( ListOfAlphabets.alphabetsUpper[i] );
             alphabets.add ( ListOfAlphabets.alphabets[i] );
             indexAlphabets.add ( ListOfAlphabets.alphabets[i] );
+            index.add ( String.valueOf ( i+1 ) );
+            index.add ( String.valueOf ( i+1 ) );
         }
 
         task.setText ( alphabets.get ( 0 ) );
@@ -116,6 +127,7 @@ public class AlphabetWriteAcitivity extends AppCompatActivity {
                             next.setEnabled ( false );
                             task.setText ( alphabets.get ( 0 ) );
                             alphabets.remove ( 0 );
+                            index.remove ( 0 );
                             paintView.clear ( paintView.getBitmap () );
                             paintView.setColorBackground ( Color.rgb ( 176,222,243) );
                             resultImage.setVisibility ( View.VISIBLE );
@@ -243,65 +255,91 @@ public class AlphabetWriteAcitivity extends AppCompatActivity {
     }
 
     private void detect() {
-        FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap ( paintView.getBitmap () );
-        FirebaseVisionTextDetector firebaseVisionTextDetector = FirebaseVision.getInstance ().getVisionTextDetector ();
-        firebaseVisionTextDetector.detectInImage ( firebaseVisionImage ).addOnSuccessListener ( new OnSuccessListener<FirebaseVisionText> () {
+
+        final ProgressBar progressBar = findViewById ( R.id.progressBar2 );
+        progressBar.setMax ( 100 );
+        progressBar.setVisibility ( View.VISIBLE );
+
+        DatabaseReference alphaRef = FirebaseDatabase.getInstance ().getReference ().child ( "AlphabetImagesAndNames" );
+        alphaRef.addListenerForSingleValueEvent ( new ValueEventListener () {
             @Override
-            public void onSuccess( FirebaseVisionText firebaseVisionText ) {
-                List<FirebaseVisionText.Block> blockList = firebaseVisionText.getBlocks ();
-                if (blockList.size () == 0) {
-                    mediaPlayer3.start ();
-                    resultImage.setVisibility ( View.INVISIBLE );
-                    gifImageView.setVisibility ( View.VISIBLE );
-                    ((GifDrawable)gifImageView.getDrawable()).start ();
-                    ((GifDrawable)gifImageView.getDrawable()).reset ();
-                    resultName.setText ( "Wrong" );
-                    new Handler (  ).postDelayed ( new Runnable () {
+            public void onDataChange( @NonNull DataSnapshot dataSnapshot ) {
+                if (dataSnapshot.exists ()){
+                    String n = dataSnapshot.child ( "Names" ).child ( String.valueOf (index.get ( 0 )) ).getValue ().toString ();
+                    String img = dataSnapshot.child ( "Images" ).child ( String.valueOf (index.get ( 0 )) ).getValue ().toString ();
+                    names = Arrays.asList ( n.split ( "----------" ) );
+                    images = Arrays.asList ( img.split ( "----------" ) );
+
+                    FirebaseVisionImage firebaseVisionImage = FirebaseVisionImage.fromBitmap ( paintView.getBitmap () );
+                    FirebaseVisionTextDetector firebaseVisionTextDetector = FirebaseVision.getInstance ().getVisionTextDetector ();
+                    firebaseVisionTextDetector.detectInImage ( firebaseVisionImage ).addOnSuccessListener ( new OnSuccessListener<FirebaseVisionText> () {
                         @Override
-                        public void run() {
-                            ((GifDrawable)gifImageView.getDrawable()).stop();
-                        }
-                    },((GifDrawable)gifImageView.getDrawable()).getDuration ()-300);
-                } else {
-                    for (FirebaseVisionText.Block block : firebaseVisionText.getBlocks ()) {
-                        String string = block.getText ();
-                        if (task.getText ().toString ().equals ( string )){
-                            mediaPlayer2.start ();
-                            resultImage.setVisibility ( View.VISIBLE );
-                            gifImageView.setVisibility ( View.INVISIBLE );
-                            int index = indexAlphabets.indexOf ( task.getText ().toString ().toLowerCase () );
-                            int random = (int) ( Math.random () * 19 );
-                            resultName.setText ( String.valueOf ( AlphabetImagesAndNames.name[index][random] ) );
-                            Glide.with ( getApplicationContext () ).load ( AlphabetImagesAndNames.images[index][random] ).into ( resultImage );
-                            next.setEnabled ( true );
-                            submit.setEnabled ( false );
-                        }
-                        else {
-                            mediaPlayer3.start ();
-                            resultImage.setVisibility ( View.INVISIBLE );
-                            gifImageView.setVisibility ( View.VISIBLE );
-                            ((GifDrawable)gifImageView.getDrawable()).start ();
-                            ((GifDrawable)gifImageView.getDrawable()).reset ();
-                            resultName.setText ( "Wrong" );
-                            new Handler (  ).postDelayed ( new Runnable () {
-                                @Override
-                                public void run() {
-                                    ((GifDrawable)gifImageView.getDrawable()).stop();
+                        public void onSuccess( FirebaseVisionText firebaseVisionText ) {
+                            List<FirebaseVisionText.Block> blockList = firebaseVisionText.getBlocks ();
+                            if (blockList.size () == 0) {
+                                mediaPlayer3.start ();
+                                resultImage.setVisibility ( View.INVISIBLE );
+                                gifImageView.setVisibility ( View.VISIBLE );
+                                ((GifDrawable)gifImageView.getDrawable()).start ();
+                                ((GifDrawable)gifImageView.getDrawable()).reset ();
+                                resultName.setText ( "Wrong" );
+                                new Handler (  ).postDelayed ( new Runnable () {
+                                    @Override
+                                    public void run() {
+                                        ((GifDrawable)gifImageView.getDrawable()).stop();
+                                    }
+                                },((GifDrawable)gifImageView.getDrawable()).getDuration ()-300);
+                            } else {
+                                for (FirebaseVisionText.Block block : firebaseVisionText.getBlocks ()) {
+                                    String string = block.getText ();
+                                    if (task.getText ().toString ().equals ( string )){
+                                        mediaPlayer2.start ();
+                                        resultImage.setVisibility ( View.VISIBLE );
+                                        gifImageView.setVisibility ( View.INVISIBLE );
+                                        int index = indexAlphabets.indexOf ( task.getText ().toString ().toLowerCase () );
+                                        int random = (int) ( Math.random () * 19 );
+                                        resultName.setText ( String.valueOf ( names.get ( random ) ) );
+                                        Glide.with ( getApplicationContext () ).load ( images.get ( random ) ).into ( resultImage );
+                                        next.setEnabled ( true );
+                                        submit.setEnabled ( false );
+                                    }
+                                    else {
+                                        mediaPlayer3.start ();
+                                        resultImage.setVisibility ( View.INVISIBLE );
+                                        gifImageView.setVisibility ( View.VISIBLE );
+                                        ((GifDrawable)gifImageView.getDrawable()).start ();
+                                        ((GifDrawable)gifImageView.getDrawable()).reset ();
+                                        resultName.setText ( "Wrong" );
+                                        new Handler (  ).postDelayed ( new Runnable () {
+                                            @Override
+                                            public void run() {
+                                                ((GifDrawable)gifImageView.getDrawable()).stop();
+                                            }
+                                        },((GifDrawable)gifImageView.getDrawable()).getDuration ()-300);
+                                    }
                                 }
-                            },((GifDrawable)gifImageView.getDrawable()).getDuration ()-300);
+                            }
+                            progressBar.setVisibility ( View.INVISIBLE );
                         }
-                    }
+                    } ).addOnFailureListener ( new OnFailureListener () {
+                        @Override
+                        public void onFailure( @NonNull Exception e ) {
+                            View view = LayoutInflater.from ( AlphabetWriteAcitivity.this ).inflate ( R.layout.toast,null,false );
+                            TextView textView = view.findViewById ( R.id.toast_text );
+                            textView.setText ( "Detection Failed" );
+                            Toast toast = new Toast ( getApplicationContext () );
+                            toast.setView ( view );
+                            toast.show ();
+                            progressBar.setVisibility ( View.INVISIBLE );
+                        }
+                    } );
+
                 }
             }
-        } ).addOnFailureListener ( new OnFailureListener () {
+
             @Override
-            public void onFailure( @NonNull Exception e ) {
-                View view = LayoutInflater.from ( AlphabetWriteAcitivity.this ).inflate ( R.layout.toast,null,false );
-                TextView textView = view.findViewById ( R.id.toast_text );
-                textView.setText ( "Detection Failed" );
-                Toast toast = new Toast ( getApplicationContext () );
-                toast.setView ( view );
-                toast.show ();
+            public void onCancelled( @NonNull DatabaseError databaseError ) {
+                progressBar.setVisibility ( View.INVISIBLE );
             }
         } );
     }

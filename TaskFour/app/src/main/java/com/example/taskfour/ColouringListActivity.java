@@ -1,5 +1,6 @@
 package com.example.taskfour;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -17,11 +18,20 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.taskfour.Adapters.ColouringImageAdapter;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ColouringListActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private MediaPlayer mediaPlayer,mediaPlayer1;
+    public List<String> colouringUrls = new ArrayList<> (  );
 
     @Override
     protected void onCreate( Bundle savedInstanceState ) {
@@ -44,10 +54,7 @@ public class ColouringListActivity extends AppCompatActivity {
         mediaPlayer = new MediaPlayer ().create(getApplicationContext (),R.raw.negative);
         mediaPlayer1 = new MediaPlayer ().create(getApplicationContext (),R.raw.rubberone);
 
-        recyclerView = findViewById ( R.id.recycler_colouring_files );
-        recyclerView.setHasFixedSize ( true );
-        recyclerView.setLayoutManager ( new GridLayoutManager ( getApplicationContext (),2 ) );
-        recyclerView.setAdapter ( new ColouringImageAdapter (getApplicationContext ()) );
+        fetchData ();
 
         Button back = findViewById ( R.id.back );
         back.setOnClickListener ( new View.OnClickListener () {
@@ -111,5 +118,28 @@ public class ColouringListActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
+
+    private void fetchData(){
+        DatabaseReference ColorRef = FirebaseDatabase.getInstance ().getReference ().child ( "ColoringImage" );
+        ColorRef.addListenerForSingleValueEvent ( new ValueEventListener () {
+            @Override
+            public void onDataChange( @NonNull DataSnapshot dataSnapshot ) {
+                if (dataSnapshot.exists ()){
+                    for (int i = 0; i < dataSnapshot.getChildrenCount (); i++) {
+                        colouringUrls.add ( dataSnapshot.child ( String.valueOf ( i+1 ) ).getValue ().toString () );
+                        recyclerView = findViewById ( R.id.recycler_colouring_files );
+                        recyclerView.setHasFixedSize ( true );
+                        recyclerView.setLayoutManager ( new GridLayoutManager ( getApplicationContext (),2 ) );
+                        recyclerView.setAdapter ( new ColouringImageAdapter (getApplicationContext (),colouringUrls) );
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled( @NonNull DatabaseError databaseError ) {
+
+            }
+        } );
     }
 }

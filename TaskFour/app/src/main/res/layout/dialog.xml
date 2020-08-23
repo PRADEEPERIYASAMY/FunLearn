@@ -56,7 +56,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:id="@+id/seekbar_size"/>
+                    android:id="@+id/seekbar_size"
+                    android:progressTint="#29B6F6"
+                    />
 
                 <TextView
                     android:layout_width="match_parent"

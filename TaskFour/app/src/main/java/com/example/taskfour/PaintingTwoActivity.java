@@ -41,7 +41,7 @@ import java.util.UUID;
 public class PaintingTwoActivity extends AppCompatActivity {
 
     private ColorView colorView;
-    public static int imageid = 0;
+    public static String imageid;
     private static final int REQUEST_PERMISSION = 1001;
     private static final int PERMISSION_REQUEST_CODE = 1000;
     private static final int REQUEST_GALARY = 1002;
@@ -73,7 +73,7 @@ public class PaintingTwoActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
         setContentView ( R.layout.activity_painting_two );
 
-        imageid = getIntent ().getIntExtra ( "imageid",0 );
+        imageid = getIntent ().getStringExtra ( "imageid");
         final Intent intent = getIntent ();
         if (intent != null){
             fileId = intent.getData ();
@@ -81,6 +81,9 @@ public class PaintingTwoActivity extends AppCompatActivity {
 
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
 
         if (ActivityCompat.checkSelfPermission ( getApplicationContext (), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ){
             requestPermissions ( new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},PERMISSION_REQUEST_CODE );

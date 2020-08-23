@@ -201,6 +201,7 @@ public class AnswerActivity extends AppCompatActivity {
             @Override
             public void onClick( View v ) {
                 mediaPlayer1.start ();
+                answerInput.setText ( "" );
                 if (TextUtils.isEmpty ( answerInput.getText ().toString () )){
                     View view = LayoutInflater.from ( AnswerActivity.this ).inflate ( R.layout.toast,null,false );
                     TextView textView = view.findViewById ( R.id.toast_text );

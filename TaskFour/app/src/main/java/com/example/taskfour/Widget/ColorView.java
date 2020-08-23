@@ -24,7 +24,10 @@ import com.example.taskfour.PaintingTwoActivity;
 import com.example.taskfour.R;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+
+import retrofit2.http.Url;
 
 public class ColorView extends View {
 
@@ -53,8 +56,13 @@ public class ColorView extends View {
         }
         else {
             if (bitmap == null){
-                Bitmap srcBitmap = BitmapFactory.decodeResource ( getResources (), PaintingTwoActivity.imageid );
-                bitmap = Bitmap.createScaledBitmap ( srcBitmap,w,h,false );
+                try {
+                    URL url = new URL ( PaintingTwoActivity.imageid );
+                    Bitmap srcBitmap = BitmapFactory.decodeStream(url.openStream ());
+                    bitmap = Bitmap.createScaledBitmap ( srcBitmap,w,h,false );
+                } catch(IOException e) {
+                    e.printStackTrace ();
+                }
 
                 for (int i =0;i<bitmap.getWidth ();i++){
                     for (int j = 0;j<bitmap.getHeight ();j++){

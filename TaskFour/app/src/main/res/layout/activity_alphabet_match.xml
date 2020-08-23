@@ -151,7 +151,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="10dp"
-                            android:src="@drawable/alphabet" />
+                             />
 
                         <TextView
                             android:id="@+id/t1"
@@ -202,7 +202,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="10dp"
-                            android:src="@drawable/alphabet" />
+                             />
 
                         <TextView
                             android:id="@+id/t2"
@@ -254,7 +254,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="10dp"
-                            android:src="@drawable/alphabet" />
+                             />
 
                         <TextView
                             android:id="@+id/t3"
@@ -305,7 +305,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="10dp"
-                            android:src="@drawable/alphabet" />
+                             />
 
                         <TextView
                             android:id="@+id/t4"
@@ -355,7 +355,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="10dp"
-                            android:src="@drawable/alphabet" />
+                             />
 
                         <TextView
                             android:id="@+id/t5"
@@ -382,5 +382,16 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.5" />
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="@android:style/Widget.Holo.Light.ProgressBar"
+        android:layout_width="70dp"
+        android:layout_height="100dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

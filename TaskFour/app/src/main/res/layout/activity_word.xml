@@ -89,6 +89,15 @@
             android:id="@+id/alphabet_word_recycler"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <ProgressBar
+            android:id="@+id/progressBar2"
+            style="@android:style/Widget.Holo.Light.ProgressBar"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
+            android:layout_marginLeft="165dp"
+            android:layout_marginTop="450dp"
+            android:visibility="invisible"
+            />
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
