@@ -6,7 +6,7 @@ FunLearn is a play and learn app for kids to create a strong impact on early lea
 
 ## Introduction
 
-The aim of this project is to make early learning interactive as possible with reward system and with parents to monitor their child's performance.
+The aim of this project is to make early learning interactive as possible with reward system along with parents to monitor their child's performance.
 This app consist of games and learning platform services along with community chat service.
 
 ![alt text](TaskFour/app/src/main/res/drawable/index.png "Title Text")
